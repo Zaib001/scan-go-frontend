@@ -33,7 +33,7 @@ const DemoPage = () => {
           <div className="my-6">
             <h3 className="text-md font-semibold text-gray-700 mb-2">Product Image</h3>
             <img
-              src={`http://localhost:5000${demo.productImage}`}
+              src={`https://scan-go-backend.onrender.com${demo.productImage}`}
               alt="Product"
               className="w-full max-h-[400px] object-contain rounded-xl border border-gray-200 shadow"
             />
