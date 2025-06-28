@@ -20,7 +20,7 @@ const AudioPlayer = ({ text }) => {
       {play && (
         <audio controls autoPlay>
           <source
-            src={`https://scan-go-frontend.onrender.com/api/tts?text=${encodeURIComponent(text)}`}
+            src={`https://scan-go-backend.onrender.com/api/tts?text=${encodeURIComponent(text)}`}
             type="audio/mpeg"
           />
           Your browser does not support audio playback.
