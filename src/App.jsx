@@ -14,6 +14,8 @@ import FeedbackList from './pages/admin/FeedbackList';
 import ProposalList from './pages/admin/ProposalList';
 import DemoEditor from './pages/admin/DemoEditor';
 import Login from './pages/admin/Login';
+import Qrcode from './pages/user/Qrcode';
+
 
 function App() {
   const { token } = useAuth();
@@ -24,6 +26,7 @@ function App() {
 
         {/* Public routes */}
         <Route path="/" element={<Home />} />
+        <Route path="/cards" element={<Qrcode />} />
         <Route path="/demo/:slug" element={<DemoPage />} />
         <Route path="/admin/login" element={<Login />} />
 

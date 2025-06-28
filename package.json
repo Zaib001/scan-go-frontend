@@ -21,6 +21,7 @@
     "@mui/x-charts": "^7.28.0",
     "@reduxjs/toolkit": "^2.2.7",
     "antd": "^5.23.1",
+    "aos": "^2.3.4",
     "apexcharts": "^4.3.0",
     "axios": "^1.7.7",
     "bizcharts": "^4.1.23",
