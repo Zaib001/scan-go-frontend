@@ -15,7 +15,7 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="text-xs text-indigo-400 text-center md:text-right">
+        <div className="text-xs text-white text-center md:text-right">
           &copy; {new Date().getFullYear()} Scan & Go. All rights reserved.
         </div>
       </div>

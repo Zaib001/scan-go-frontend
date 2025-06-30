@@ -8,36 +8,36 @@ export default function PricingCTA() {
   }, []);
 
   return (
-    <section className="relative z-10 py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-      {/* Glowing Effects */}
-      <div className="absolute top-0 left-0 h-64 w-64 bg-indigo-500 opacity-20 blur-3xl rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 right-0 h-64 w-64 bg-indigo-400 opacity-20 blur-3xl rounded-full pointer-events-none" />
+    <section className="relative z-10 py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto bg-white">
+      {/* Gradient Glows */}
+      <div className="absolute top-0 left-0 h-64 w-64 bg-indigo-300 opacity-20 blur-3xl rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 right-0 h-64 w-64 bg-purple-300 opacity-20 blur-3xl rounded-full pointer-events-none" />
 
       {/* Section Header */}
       <div className="text-center mb-20">
-        <div className="w-full border-t border-indigo-500 relative z-10">
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gray-900 px-4 text-indigo-300 text-sm font-semibold tracking-wider uppercase">
+        <div className="w-full border-t border-gray-300 relative z-10">
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white px-4 text-black text-sm font-semibold tracking-wider uppercase">
             Pricing
           </div>
         </div>
-        <h2 className="text-3xl md:text-4xl font-semibold text-white mt-4">
+        <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mt-4">
           Simple & Transparent Pricing
         </h2>
-        <p className="text-indigo-200/70 mt-2 max-w-xl mx-auto">
+        <p className="text-gray-500 mt-2 max-w-xl mx-auto">
           Start free or upgrade as you grow — built for museums, galleries, and events of all sizes.
         </p>
       </div>
 
       {/* Pricing Card */}
       <div
-        className="bg-gradient-to-br from-gray-800/80 to-gray-900/60 border border-indigo-500/30 rounded-2xl p-10 max-w-2xl mx-auto shadow-xl"
+        className="bg-white border border-indigo-100 rounded-2xl p-10 max-w-2xl mx-auto shadow-lg transition hover:shadow-xl"
         data-aos="fade-up"
       >
         <div className="flex items-start gap-5">
           {/* Icon */}
-          <div className="flex-shrink-0 bg-indigo-600 p-3 rounded-full">
+          <div className="flex-shrink-0 bg-indigo-100 p-3 rounded-full">
             <svg
-              className="w-6 h-6 text-white"
+              className="w-6 h-6 text-black"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
@@ -49,14 +49,14 @@ export default function PricingCTA() {
 
           {/* Content */}
           <div>
-            <h3 className="text-xl font-semibold text-white mb-2">Starter Plan</h3>
-            <p className="text-indigo-300 mb-4 text-sm leading-relaxed">
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">Starter Plan</h3>
+            <p className="text-gray-600 mb-4 text-sm leading-relaxed">
               Includes up to 50 exhibits, offline mode, and multi-language support.
             </p>
-            <div className="text-4xl font-bold text-white mb-6">
-              $29<span className="text-base font-medium text-indigo-300">/month</span>
+            <div className="text-4xl font-bold text-gray-900 mb-6">
+              $29 <span className="text-base font-medium text-gray-500">/month</span>
             </div>
-            <button className="btn bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-md transition">
+            <button className="bg-black hover:bg-indigo-700 text-white px-6 py-2 rounded-md transition">
               Start Now
             </button>
           </div>
@@ -65,8 +65,8 @@ export default function PricingCTA() {
 
       {/* CTA Text */}
       <div className="text-center mt-16" data-aos="fade-up" data-aos-delay="200">
-        <p className="text-indigo-300 mb-4">Want a personalized tour for your space?</p>
-        <button className="btn bg-gray-800 hover:bg-gray-700 text-gray-300 px-6 py-2 rounded-md transition">
+        <p className="text-gray-600 mb-4">Want a personalized tour for your space?</p>
+        <button className="bg-gray-900 hover:bg-gray-800 text-white px-6 py-2 rounded-md transition">
           Schedule Demo
         </button>
       </div>

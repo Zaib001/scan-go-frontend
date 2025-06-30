@@ -15,7 +15,7 @@ export default function FinalCTA() {
 
       {/* CTA Container */}
       <div
-        className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 rounded-xl border border-white/10 shadow-xl p-12 text-center backdrop-blur-md"
+        className="bg-gradient-to-r bg-black rounded-xl border border-white/10 shadow-xl p-12 text-center backdrop-blur-md"
         data-aos="zoom-in"
       >
         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">

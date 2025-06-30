@@ -40,22 +40,22 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section className="relative z-10 py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+    <section className="relative z-10 py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto bg-white">
       {/* Glow Effects */}
-      <div className="absolute top-0 right-0 h-56 w-56 bg-indigo-500 opacity-20 blur-3xl rounded-full pointer-events-none z-0" />
-      <div className="absolute bottom-0 left-0 h-56 w-56 bg-indigo-400 opacity-20 blur-3xl rounded-full pointer-events-none z-0" />
+      <div className="absolute top-0 right-0 h-56 w-56 bg-indigo-300 opacity-20 blur-3xl rounded-full pointer-events-none z-0" />
+      <div className="absolute bottom-0 left-0 h-56 w-56 bg-purple-300 opacity-20 blur-3xl rounded-full pointer-events-none z-0" />
 
       {/* Section Header */}
       <div className="text-center mb-20 relative z-10">
-        <div className="w-full border-t border-indigo-500 relative z-10">
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gray-900 px-4 text-indigo-300 text-sm font-semibold tracking-wider uppercase">
+        <div className="w-full border-t border-gray-300 relative z-10">
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white px-4 text-black text-sm font-semibold tracking-wider uppercase">
             Testimonials
           </div>
         </div>
-        <h2 className="text-3xl md:text-4xl font-semibold text-white mt-4">
+        <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mt-4">
           What Our Partners Say
         </h2>
-        <p className="text-indigo-200/70 mt-2 max-w-xl mx-auto">
+        <p className="text-gray-500 mt-2 max-w-xl mx-auto">
           Hear directly from those using our system in real-world settings.
         </p>
       </div>
@@ -65,7 +65,7 @@ export default function Testimonials() {
         {testimonials.map((t, idx) => (
           <div
             key={idx}
-            className="bg-gray-800 border border-indigo-500/20 rounded-xl p-6 shadow-lg hover:shadow-indigo-600/30 transition"
+            className="bg-white border border-gray-200 rounded-xl p-6 shadow hover:shadow-lg transition"
             data-aos="fade-up"
             data-aos-delay={idx * 100}
           >
@@ -76,11 +76,11 @@ export default function Testimonials() {
                 className="w-12 h-12 rounded-full border-2 border-indigo-400"
               />
               <div>
-                <h4 className="text-white font-semibold">{t.name}</h4>
-                <span className="text-sm text-indigo-300">{t.company}</span>
+                <h4 className="text-gray-900 font-semibold">{t.name}</h4>
+                <span className="text-sm text-black">{t.company}</span>
               </div>
             </div>
-            <p className="text-indigo-200/80 text-sm">“{t.quote}”</p>
+            <p className="text-gray-600 text-sm">“{t.quote}”</p>
           </div>
         ))}
       </div>
