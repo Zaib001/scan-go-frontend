@@ -65,6 +65,10 @@ export default function PricingCTA() {
 
       {/* CTA Text */}
       <div className="text-center mt-16" data-aos="fade-up" data-aos-delay="200">
+        <p className="text-gray-600 mb-4">Risk-free, money-back guarantee</p>
+        <p className="text-gray-500 mb-4 text-sm">
+          If you don’t get exactly what you expect — for any reason — just drop us an e-mail within 30 days and we’ll refund your money, no questions asked.
+        </p>
         <p className="text-gray-600 mb-4">Want a personalized tour for your space?</p>
         <button className="bg-gray-900 hover:bg-gray-800 text-white px-6 py-2 rounded-md transition">
           Schedule Demo

@@ -2,35 +2,35 @@ import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-// Dummy testimonials
+// Updated testimonials with new names, businesses, and images
 const testimonials = [
   {
-    name: "Emily Carter",
-    company: "National History Museum",
+    name: "Alice Johnson",
+    company: "Global Museum",
     quote:
-      "This audio guide system is a game-changer. Visitors love the instant access and multi-language support!",
-    image: "https://i.pravatar.cc/100?img=1",
+      "This system has transformed our museum's visitor experience. The audio guides are incredibly user-friendly!",
+    image: "https://i.pravatar.cc/100?img=9",
   },
   {
-    name: "James Thompson",
-    company: "ArtVision Gallery",
+    name: "Robert Miller",
+    company: "Visionary Arts",
     quote:
-      "Super simple setup, and our international visitors really appreciate the offline functionality.",
-    image: "https://i.pravatar.cc/100?img=2",
+      "We saw an immediate increase in engagement after implementing Scan Me AI. The multilingual options are a huge plus.",
+    image: "https://i.pravatar.cc/100?img=8",
   },
   {
-    name: "Sofia Lopez",
-    company: "Tech Explorers",
+    name: "Mia Rodriguez",
+    company: "Future Exhibits",
     quote:
-      "An amazing tool for exhibitions. The QR scan to audio is seamless and very intuitive for users.",
-    image: "https://i.pravatar.cc/100?img=3",
+      "The QR scan feature is a game-changer. It’s seamless, and our visitors love the convenience of it.",
+    image: "https://i.pravatar.cc/100?img=7",
   },
   {
-    name: "Liam Nguyen",
-    company: "Heritage Tours",
+    name: "John Davis",
+    company: "Heritage Expeditions",
     quote:
-      "We were up and running in a day. Excellent support and great value for our museum tours.",
-    image: "https://i.pravatar.cc/100?img=4",
+      "The offline feature is fantastic for our outdoor exhibits. It’s great to offer visitors the option to enjoy the audio anytime.",
+    image: "https://i.pravatar.cc/100?img=12",
   },
 ];
 

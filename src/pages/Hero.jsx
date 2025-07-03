@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { FaPlay, FaChevronDown } from "react-icons/fa";
+import { FaHospital,FaPlay,FaUniversity, FaChevronDown,  FaPaintBrush, FaSeedling, FaBookOpen, FaHotel, FaRegBuilding } from 'react-icons/fa'
 
-// Top Section Users
 const celebrityVoices = [
     {
         name: "Snoop",
@@ -22,6 +21,51 @@ const celebrityVoices = [
         name: "MrBeast",
         role: "YouTuber",
         img: "https://website.cdn.speechify.com/Beast-large@2x.png",
+    },
+];
+// Use Cases Data
+const useCases = [
+    {
+        title: "Hospitals",
+        description:
+            "Text-to-speech is vital for hospitals to enhance patient care and operational efficiency. It ensures critical information, like discharge instructions or medication details, is accessible to all, including those with visual impairments or language barriers.",
+        videoLink: "https://youtu.be/g0iQI4I9ssc",
+    },
+    {
+        title: "Museums",
+        description:
+            "Go beyond static labels and unlock deeper engagement for every visitor. Transform your existing exhibit text and research into rich, multi-layered audio narratives and translations.",
+        videoLink: "https://youtu.be/tPI9c3Ys8AA",
+    },
+    {
+        title: "Art Galleries",
+        description:
+            "Deepen the Connection with Every Artwork. Allow your visitors to explore the emotional and technical nuances of each piece through accessible audio and multi-language translations.",
+        videoLink: "https://youtu.be/tPI9c3Ys8AA", // Replace with actual link
+    },
+    {
+        title: "Garden Centres",
+        description:
+            "Grow Customer Success and Loyalty. Empower every customer to become a more confident and successful gardener by offering instant audio advice about plant care, right from the pot.",
+        videoLink: "https://youtu.be/tPI9c3Ys8AA", // Replace with actual link
+    },
+    {
+        title: "Education",
+        description:
+            "Revolutionize Learning. Empower students with accessible, engaging audio lessons and multi-language translations, making learning personalized and inclusive for every student.",
+        videoLink: "https://youtu.be/tPI9c3Ys8AA", // Replace with actual link
+    },
+    {
+        title: "Tourism - Hotels & Attractions",
+        description:
+            "Elevate the guest experience by providing instant, personalized information about hotel services, amenities, and local attractions in multiple languages through QR codes.",
+        videoLink: "https://youtu.be/tPI9c3Ys8AA", // Replace with actual link
+    },
+    {
+        title: "Local Councils",
+        description:
+            "Connect with Every Citizen. Ensure all public information and services are accessible to everyone, regardless of language barriers, through accessible audio and translations.",
+        videoLink: "https://youtu.be/tPI9c3Ys8AA", // Replace with actual link
     },
 ];
 
@@ -192,7 +236,6 @@ export default function Hero() {
                                         />
                                     </div>
                                     <div className="text-sm font-medium mt-2">{user.name}</div>
-
                                 </div>
                             ))}
                         </div>
@@ -207,6 +250,70 @@ export default function Hero() {
                     </button>
                 </div>
             </div>
+
+            {/* Use Case Section */}
+         <section className="py-24">
+    <div className="max-w-6xl mx-auto text-center">
+<div className="w-full border-t border-gray-300 relative z-10">
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white px-4 text-black text-sm font-semibold tracking-wider uppercase">
+            Use Cases
+          </div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+            {useCases.map((useCase, index) => (
+                <div
+                    key={index}
+                    className="bg-white rounded-xl shadow-xl p-6 transition-all transform hover:scale-105 hover:shadow-2xl hover:bg-indigo-100 hover:transition-all duration-300 ease-in-out"
+                    data-aos="fade-up"
+                    data-aos-delay={index * 100}
+                >
+                    {/* Icon Section */}
+                    <div className="flex justify-center items-center mb-6">
+                        {/* Replace with relevant icons */}
+                        {useCase.title === "Hospitals" && (
+                            <FaHospital className="w-16 h-16 text-black transform transition-all hover:rotate-12" />
+                        )}
+                        {useCase.title === "Museums" && (
+                            <FaUniversity className="w-16 h-16 text-black transform transition-all hover:rotate-12" />
+                        )}
+                        {useCase.title === "Art Galleries" && (
+                            <FaPaintBrush className="w-16 h-16 text-black transform transition-all hover:rotate-12" />
+                        )}
+                        {useCase.title === "Garden Centres" && (
+                            <FaSeedling className="w-16 h-16 text-black transform transition-all hover:rotate-12" />
+                        )}
+                        {useCase.title === "Education" && (
+                            <FaBookOpen className="w-16 h-16 text-black transform transition-all hover:rotate-12" />
+                        )}
+                        {useCase.title === "Tourism - Hotels & Attractions" && (
+                            <FaHotel className="w-16 h-16 text-black transform transition-all hover:rotate-12" />
+                        )}
+                        {useCase.title === "Local Councils" && (
+                            <FaRegBuilding className="w-16 h-16 text-black transform transition-all hover:rotate-12" />
+                        )}
+                    </div>
+
+                    {/* Title and Description */}
+                    <h3 className="text-2xl font-semibold text-black mb-4 transition-all duration-200 ease-in-out hover:text-indigo-600">
+                        {useCase.title}
+                    </h3>
+                    <p className="text-gray-600 text-lg mb-4">{useCase.description}</p>
+
+                    {/* Watch Video Link */}
+                    <a
+                        href={useCase.videoLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block text-indigo-600 font-medium transition-all duration-300 ease-in-out hover:text-indigo-800 hover:underline"
+                    >
+                        Watch video
+                    </a>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
         </>
     );
 }
