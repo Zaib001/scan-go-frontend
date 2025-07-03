@@ -6,22 +6,32 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const faqs = [
   {
-    question: "Do I need an app to use the audio guide?",
-    answer: "No app is required. Just scan the QR code and the audio plays directly in the browser.",
+    question: "Do I need an app to use Scan Me AI?",
+    answer: (
+      <>
+        No. Just scan the QR code and the audio plays right in your browser. Don’t forget to bring your smartphone and a set of headphones.{" "}
+        <a href="/shop" className="text-indigo-600 underline hover:text-indigo-800">Need headphones? Shop here!</a>
+      </>
+    ),
   },
   {
     question: "Is internet required during the visit?",
-    answer: "Internet is only needed initially. If downloaded, audio works offline without interruption.",
+    answer: "Internet is only needed initially. If downloaded, the audio works offline without interruption.",
+  },
+  {
+    question: "How do I set up a premium membership that will generate revenue?",
+    answer: "Just ask and we’ll set it up for you — no extra charge.",
   },
   {
     question: "Can I customize the audio for my venue?",
-    answer: "Yes, we offer full customization, including branding, language support, and voice options.",
+    answer: "Yes. We offer full customization, including branding, multi-language support, and voice options. Since we use your existing content, setup is minimal.",
   },
   {
     question: "Is the system suitable for outdoor exhibits?",
-    answer: "Absolutely. Our guides are optimized for both indoor and outdoor environments.",
+    answer: "Yes. Our guides are optimized for both indoor and outdoor environments.",
   },
 ];
+
 
 export default function Faqs() {
   const [activeIndex, setActiveIndex] = useState(null);
