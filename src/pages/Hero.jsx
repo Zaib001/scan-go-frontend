@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { FaHospital, FaPlay, FaUniversity, FaChevronDown, FaPaintBrush, FaSeedling, FaBookOpen, FaHotel, FaRegBuilding } from 'react-icons/fa'
 import ModalVideo from "./ModalVideo";
-import UseCaseModalVideo from "./useCaseModalVideo";
+import UseCaseModalVideo from "./UseCaseModalVideo";
 
 const scanVoices = [
     {
