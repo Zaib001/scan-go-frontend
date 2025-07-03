@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { FaHospital, FaPlay, FaUniversity, FaChevronDown, FaPaintBrush, FaSeedling, FaBookOpen, FaHotel, FaRegBuilding } from 'react-icons/fa'
 import ModalVideo from "./ModalVideo";
+import useCaseModalVideo from "./useCaseModalVideo";
+import UseCaseModalVideo from "./useCaseModalVideo";
 
 const scanVoices = [
     {
@@ -140,7 +142,8 @@ export default function Hero() {
     const [selectedLang, setSelectedLang] = useState(users[0].lang);
     const [showLangMenu, setShowLangMenu] = useState(false);
     const [voices, setVoices] = useState([]);
-
+    const [isSpeaking, setIsSpeaking] = useState(false);
+    const [openVideoIndex, setOpenVideoIndex] = useState(null);
     useEffect(() => {
         const loadVoices = () => setVoices(window.speechSynthesis.getVoices());
         loadVoices();
@@ -148,6 +151,7 @@ export default function Hero() {
             speechSynthesis.onvoiceschanged = loadVoices;
         }
     }, []);
+
 
     const playText = () => {
         const text = translations[selectedLang];
@@ -169,8 +173,17 @@ export default function Hero() {
         utterance.voice = matchingVoice || null;
         utterance.lang = matchingVoice?.lang || `${langCode}-US`;
 
+        utterance.onstart = () => setIsSpeaking(true);
+        utterance.onend = () => setIsSpeaking(false);
+        utterance.onerror = () => setIsSpeaking(false);
+
         window.speechSynthesis.cancel();
         window.speechSynthesis.speak(utterance);
+    };
+
+    const stopText = () => {
+        window.speechSynthesis.cancel();
+        setIsSpeaking(false);
     };
 
     return (
@@ -279,12 +292,24 @@ export default function Hero() {
                     </div>
 
                     {/* Play Button */}
-                    <button
-                        className="absolute bottom-6 right-6 bg-black text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-indigo-700 transition"
-                        onClick={playText}
-                    >
-                        <FaPlay />
-                    </button>
+                    <div className="absolute bottom-6 right-6 flex gap-4">
+                        <button
+                            className="bg-black text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-indigo-700 transition"
+                            onClick={playText}
+                            title="Play"
+                        >
+                            <FaPlay />
+                        </button>
+                        {isSpeaking && (
+                            <button
+                                className="bg-red-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-red-700 transition"
+                                onClick={stopText}
+                                title="Stop"
+                            >
+                                ×
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
 
@@ -306,58 +331,50 @@ export default function Hero() {
                             >
                                 {/* Icon Section */}
                                 <div className="flex justify-center items-center mb-6">
-                                    {/* Replace with relevant icons */}
-                                    {useCase.title === "Hospitals" && (
-                                        <FaHospital className="w-16 h-16 text-black transform transition-all hover:rotate-12" />
-                                    )}
-                                    {useCase.title === "Museums" && (
-                                        <FaUniversity className="w-16 h-16 text-black transform transition-all hover:rotate-12" />
-                                    )}
-                                    {useCase.title === "Art Galleries" && (
-                                        <FaPaintBrush className="w-16 h-16 text-black transform transition-all hover:rotate-12" />
-                                    )}
-                                    {useCase.title === "Garden Centres" && (
-                                        <FaSeedling className="w-16 h-16 text-black transform transition-all hover:rotate-12" />
-                                    )}
-                                    {useCase.title === "Education" && (
-                                        <FaBookOpen className="w-16 h-16 text-black transform transition-all hover:rotate-12" />
-                                    )}
-                                    {useCase.title === "Tourism - Hotels & Attractions" && (
-                                        <FaHotel className="w-16 h-16 text-black transform transition-all hover:rotate-12" />
-                                    )}
-                                    {useCase.title === "Local Councils" && (
-                                        <FaRegBuilding className="w-16 h-16 text-black transform transition-all hover:rotate-12" />
-                                    )}
+                                    {useCase.title === "Hospitals" && <FaHospital className="w-16 h-16 text-black hover:rotate-12" />}
+                                    {useCase.title === "Museums" && <FaUniversity className="w-16 h-16 text-black hover:rotate-12" />}
+                                    {useCase.title === "Art Galleries" && <FaPaintBrush className="w-16 h-16 text-black hover:rotate-12" />}
+                                    {useCase.title === "Garden Centres" && <FaSeedling className="w-16 h-16 text-black hover:rotate-12" />}
+                                    {useCase.title === "Education" && <FaBookOpen className="w-16 h-16 text-black hover:rotate-12" />}
+                                    {useCase.title === "Tourism - Hotels & Attractions" && <FaHotel className="w-16 h-16 text-black hover:rotate-12" />}
+                                    {useCase.title === "Local Councils" && <FaRegBuilding className="w-16 h-16 text-black hover:rotate-12" />}
                                 </div>
 
-                                {/* Title and Description */}
-                                <h3 className="text-2xl font-semibold text-black mb-4 transition-all duration-200 ease-in-out hover:text-indigo-600">
+                                {/* Title & Description */}
+                                <h3 className="text-2xl font-semibold text-black mb-4 hover:text-indigo-600 transition">
                                     {useCase.title}
                                 </h3>
                                 <p className="text-gray-600 text-lg mb-4">{useCase.description}</p>
 
-                                {/* Watch Video Link */}
-                                <a
-                                    href={useCase.videoLink}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-block text-indigo-600 font-medium transition-all duration-300 ease-in-out hover:text-indigo-800 hover:underline"
+                                {/* Watch Video Button */}
+                                <button
+                                    onClick={() => setOpenVideoIndex(index)}
+                                    className="inline-block text-indigo-600 font-medium hover:text-indigo-800 hover:underline transition"
                                 >
                                     Watch video
-                                </a>
+                                </button>
+
+                                {/* Modal Lightbox for Video */}
+                                {openVideoIndex === index && (
+                                    <UseCaseModalVideo
+                                        videoSrc={useCase.videoLink.replace("youtu.be/", "www.youtube.com/embed/") + "?autoplay=1"}
+                                        isOpen={openVideoIndex === index}
+                                        onClose={() => setOpenVideoIndex(null)}
+                                    />
+                                )}
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
-          
-<div className="flex justify-center mt-12">
-  <ModalVideo
-    videoSrc="https://www.youtube.com/embed/O51IYtV9oQY?autoplay=1"
-    thumb="https://img.youtube.com/vi/O51IYtV9oQY/maxresdefault.jpg"
-    alt="Watch Demo"
-  />
-</div>
+
+            <div className="flex justify-center mt-12">
+                <ModalVideo
+                    videoSrc="https://www.youtube.com/embed/O51IYtV9oQY?autoplay=1"
+                    thumb="https://img.youtube.com/vi/O51IYtV9oQY/maxresdefault.jpg"
+                    alt="Watch Demo"
+                />
+            </div>
         </>
     );
 }
