@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaHospital, FaPlay, FaUniversity, FaChevronDown, FaPaintBrush, FaSeedling, FaBookOpen, FaHotel, FaRegBuilding } from 'react-icons/fa'
 import ModalVideo from "./ModalVideo";
-import UseCaseModalVideo from "./useCaseModalVideo";
 
 const scanVoices = [
     {
@@ -355,7 +354,7 @@ export default function Hero() {
 
                                 {/* Modal Lightbox for Video */}
                                 {openVideoIndex === index && (
-                                    <UseCaseModalVideo
+                                    <ModalVideo
                                         videoSrc={useCase.videoLink.replace("youtu.be/", "www.youtube.com/embed/") + "?autoplay=1"}
                                         isOpen={openVideoIndex === index}
                                         onClose={() => setOpenVideoIndex(null)}

@@ -8,14 +8,14 @@ export default function PricingCTA() {
   }, []);
 
   return (
-    <section className="relative z-10 py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto bg-white">
+    <section className="relative py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto bg-white">
       {/* Gradient Glows */}
       <div className="absolute top-0 left-0 h-64 w-64 bg-indigo-300 opacity-20 blur-3xl rounded-full pointer-events-none" />
       <div className="absolute bottom-0 right-0 h-64 w-64 bg-purple-300 opacity-20 blur-3xl rounded-full pointer-events-none" />
 
       {/* Section Header */}
       <div className="text-center mb-20">
-        <div className="w-full border-t border-gray-300 relative z-10">
+        <div className="w-full border-t border-gray-300 relative">
           <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white px-4 text-black text-sm font-semibold tracking-wider uppercase">
             Pricing
           </div>

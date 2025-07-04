@@ -1,16 +1,23 @@
 import React, { useState } from "react";
 import { FaPlay } from "react-icons/fa";
 
-export default function ModalVideo({ videoSrc, thumb, alt }) {
-  const [isOpen, setIsOpen] = useState(false);
+export default function ModalVideo({ videoSrc, thumb, alt, isOpen: externalIsOpen, onClose }) {
+  const [internalOpen, setInternalOpen] = useState(false);
+
+  const isControlled = typeof externalIsOpen === "boolean";
+  const isOpen = isControlled ? externalIsOpen : internalOpen;
+  const handleClose = isControlled ? onClose : () => setInternalOpen(false);
+  const handleOpen = () => {
+    if (!isControlled) setInternalOpen(true);
+  };
 
   return (
     <>
-      {/* Thumbnail Trigger */}
+      {/* Optional Thumbnail Trigger Mode */}
       {thumb && (
         <button
           className="group relative flex items-center justify-center rounded-xl overflow-hidden mx-auto max-w-2xl shadow-lg hover:shadow-2xl transition-transform transform hover:scale-105"
-          onClick={() => setIsOpen(true)}
+          onClick={handleOpen}
           aria-label="Watch the demo"
         >
           <img
@@ -27,7 +34,7 @@ export default function ModalVideo({ videoSrc, thumb, alt }) {
         </button>
       )}
 
-      {/* Modal Video Player */}
+      {/* Modal Video */}
       {isOpen && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center px-4">
           <div className="relative w-full max-w-4xl aspect-video">
@@ -43,7 +50,7 @@ export default function ModalVideo({ videoSrc, thumb, alt }) {
             {/* Close Button */}
             <button
               className="absolute -top-1 right-2 text-white text-3xl font-bold hover:text-red-400"
-              onClick={() => setIsOpen(false)}
+              onClick={handleClose}
             >
               ×
             </button>

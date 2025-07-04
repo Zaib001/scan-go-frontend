@@ -1,9 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { FaQrcode, FaHeadphones, FaCloudDownloadAlt } from "react-icons/fa";
+import ModalVideo from "./ModalVideo";
 
 export default function HowItWorks() {
+
+  const [openVideoIndex,setOpenVideoIndex] = useState("");
+
+  
   useEffect(() => {
     AOS.init({ duration: 700, once: true });
   }, []);
@@ -72,15 +77,22 @@ export default function HowItWorks() {
 
       {/* Optional Video CTA */}
       <div className="text-center mt-16">
-        <a
-          href="https://youtu.be/tPI9c3Ys8AA"
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          onClick={() => setOpenVideoIndex("how-it-works")}
           className="inline-block bg-black hover:bg-indigo-700 text-white px-6 py-3 rounded-full font-medium transition"
         >
           Watch How It Works
-        </a>
+        </button>
+
+        {openVideoIndex === "how-it-works" && (
+          <ModalVideo
+            videoSrc="https://youtu.be/tPI9c3Ys8AA"
+            isOpen={true}
+            onClose={() => setOpenVideoIndex(null)}
+          />
+        )}
       </div>
+
     </section>
   );
 }
