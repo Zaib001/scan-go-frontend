@@ -162,6 +162,13 @@ export default function Hero() {
 
         setIsSpeaking(true);
         setCurrentWordIndex(null);
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+            );
+        }
 
         // Highlight words
         utterance.onboundary = (event) => {
@@ -171,11 +178,12 @@ export default function Hero() {
                 setCurrentWordIndex(wordIndex);
 
                 const wordElement = wordRefs.current[wordIndex];
-                if (wordElement) {
+                if (wordElement && !isInViewport(wordElement)) {
                     wordElement.scrollIntoView({ behavior: "smooth", block: "center" });
                 }
             }
         };
+
 
         utterance.onend = () => {
             setIsSpeaking(false);
