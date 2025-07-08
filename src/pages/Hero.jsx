@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { FaHospital, FaPlay, FaUniversity, FaChevronDown, FaPaintBrush, FaSeedling, FaBookOpen, FaHotel, FaRegBuilding } from 'react-icons/fa'
 import ModalVideo from "./ModalVideo";
+import { Link } from "react-router-dom";
 
 const scanVoices = [
     {
@@ -205,7 +206,7 @@ export default function Hero() {
                     {/* CTA */}
                     <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full flex items-center gap-2 justify-center mx-auto mb-16 shadow-lg hover:scale-105 transition">
                         <FaPlay className="text-white" />
-                        Try the Demo
+                        <Link to='cards'>Try the Demo</Link>
                     </button>
 
                     {/* Grid of Profiles */}
