@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { FaHospital, FaPlay, FaUniversity, FaChevronDown, FaPaintBrush, FaSeedling, FaBookOpen, FaHotel, FaRegBuilding } from 'react-icons/fa'
 import ModalVideo from "./ModalVideo";
 
@@ -142,6 +142,9 @@ export default function Hero() {
     const [voices, setVoices] = useState([]);
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [openVideoIndex, setOpenVideoIndex] = useState(null);
+    const [currentWordIndex, setCurrentWordIndex] = useState(null);
+    const wordRefs = useRef([]);
+
     useEffect(() => {
         const loadVoices = () => setVoices(window.speechSynthesis.getVoices());
         loadVoices();
@@ -150,34 +153,38 @@ export default function Hero() {
         }
     }, []);
 
-
     const playText = () => {
-        const text = translations[selectedLang];
-        const utterance = new SpeechSynthesisUtterance(text);
+        const utterance = new SpeechSynthesisUtterance(translations[selectedLang]);
+        utterance.voice = speechSynthesis.getVoices().find(v => v.name === selectedVoice.voiceName);
+        utterance.lang = selectedVoice.langCode;
+        utterance.rate = 1;
 
-        const langCode = {
-            English: "en",
-            Spanish: "es",
-            French: "fr",
-            German: "de",
-        }[selectedLang];
+        setIsSpeaking(true);
+        setCurrentWordIndex(null);
 
-        const matchingVoice = voices.find(
-            (v) =>
-                v.lang.toLowerCase().startsWith(langCode) &&
-                v.name.toLowerCase().includes(selectedVoice.gender === "male" ? "male" : "female")
-        );
+        // Highlight words
+        utterance.onboundary = (event) => {
+            if (event.name === "word") {
+                const textBefore = translations[selectedLang].slice(0, event.charIndex);
+                const wordIndex = textBefore.split(" ").length - 1;
+                setCurrentWordIndex(wordIndex);
 
-        utterance.voice = matchingVoice || null;
-        utterance.lang = matchingVoice?.lang || `${langCode}-US`;
+                const wordElement = wordRefs.current[wordIndex];
+                if (wordElement) {
+                    wordElement.scrollIntoView({ behavior: "smooth", block: "center" });
+                }
+            }
+        };
 
-        utterance.onstart = () => setIsSpeaking(true);
-        utterance.onend = () => setIsSpeaking(false);
-        utterance.onerror = () => setIsSpeaking(false);
+        utterance.onend = () => {
+            setIsSpeaking(false);
+            setCurrentWordIndex(null);
+        };
 
-        window.speechSynthesis.cancel();
-        window.speechSynthesis.speak(utterance);
+        speechSynthesis.cancel(); // Cancel any ongoing speech
+        speechSynthesis.speak(utterance);
     };
+
 
     const stopText = () => {
         window.speechSynthesis.cancel();
@@ -222,95 +229,111 @@ export default function Hero() {
             </div>
 
             {/* === Main TTS Section === */}
-            <div className="min-h-screen bg-white flex items-center justify-center py-12 px-4">
-                <div className="relative max-w-6xl w-full bg-white rounded-3xl shadow-2xl flex flex-col lg:flex-row overflow-hidden border border-gray-200">
-                    {/* Left Column */}
-                    <div className="w-full lg:w-1/2 p-6 sm:p-10">
-                        {/* Language Dropdown */}
-                        <div className="relative inline-block text-left mb-6">
-                            <button
-                                onClick={() => setShowLangMenu(!showLangMenu)}
-                                className="inline-flex justify-between items-center bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-full text-sm font-medium text-gray-800 w-48"
-                            >
-                                {selectedLang}
-                                <FaChevronDown className="ml-2" />
-                            </button>
-                            {showLangMenu && (
-                                <div className="absolute mt-2 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
-                                    <div className="py-1">
-                                        {languages.map((lang) => (
-                                            <button
-                                                key={lang}
-                                                onClick={() => {
-                                                    setSelectedLang(lang);
-                                                    setShowLangMenu(false);
-                                                }}
-                                                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                            >
-                                                {lang}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-                        </div>
+            <>
 
-                        {/* Paragraph Text */}
-                        <div className="mt-4 text-gray-800 text-base leading-relaxed whitespace-pre-line">
-                            {translations[selectedLang]}
-                        </div>
-                    </div>
+                <div className="min-h-screen bg-white flex items-center justify-center py-12 px-4">
 
-                    {/* Right Column: Users */}
-                    <div className="w-full lg:w-1/2 p-6 sm:p-10 bg-white">
-                        <div className="grid grid-cols-2 sm:grid-cols-2 gap-6">
-                            {users.map((user) => (
-                                <div
-                                    key={user.name}
-                                    onClick={() => {
-                                        setSelectedVoice(user);
-                                        setSelectedLang(user.lang);
-                                    }}
-                                    className="flex flex-col items-center text-center cursor-pointer"
-                                >
-                                    <div
-                                        className={`rounded-full p-1 ${selectedVoice.name === user.name ? "ring-2 ring-black" : ""
-                                            }`}
+                    <div className="relative max-w-6xl w-full bg-white rounded-3xl shadow-2xl flex flex-col lg:flex-row overflow-hidden border border-gray-200">
+                        <div className="absolute top-0 left-0 w-full text-center py-4 bg-white z-20 border-b border-gray-200">
+                            <h2 className="text-2xl font-bold text-gray-800">Try it for yourself</h2>
+                        </div>
+                        <div className="flex flex-col lg:flex-row w-full pt-20">
+                            {/* Left Column */}
+                            <div className="w-full lg:w-1/2 p-6 sm:p-10">
+                                {/* Language Dropdown */}
+                                <div className="relative inline-block text-left mb-6">
+                                    <button
+                                        onClick={() => setShowLangMenu(!showLangMenu)}
+                                        className="inline-flex justify-between items-center bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-full text-sm font-medium text-gray-800 w-48"
                                     >
-                                        <img
-                                            src={user.img}
-                                            alt={user.name}
-                                            className="w-16 h-16 rounded-full object-cover"
-                                        />
-                                    </div>
-                                    <div className="text-sm font-medium mt-2">{user.name}</div>
+                                        {selectedLang}
+                                        <FaChevronDown className="ml-2" />
+                                    </button>
+                                    {showLangMenu && (
+                                        <div className="absolute mt-2 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                                            <div className="py-1">
+                                                {languages.map((lang) => (
+                                                    <button
+                                                        key={lang}
+                                                        onClick={() => {
+                                                            setSelectedLang(lang);
+                                                            setShowLangMenu(false);
+                                                        }}
+                                                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                    >
+                                                        {lang}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
-                            ))}
-                        </div>
-                    </div>
 
-                    {/* Play Button */}
-                    <div className="absolute bottom-6 right-6 flex gap-4">
-                        <button
-                            className="bg-black text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-indigo-700 transition"
-                            onClick={playText}
-                            title="Play"
-                        >
-                            <FaPlay />
-                        </button>
-                        {isSpeaking && (
-                            <button
-                                className="bg-red-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-red-700 transition"
-                                onClick={stopText}
-                                title="Stop"
-                            >
-                                ×
-                            </button>
-                        )}
+                                <div className="mt-4 text-gray-800 text-base leading-relaxed whitespace-pre-wrap">
+                                    {translations[selectedLang].split(" ").map((word, i) => (
+                                        <span
+                                            key={i}
+                                            ref={(el) => (wordRefs.current[i] = el)}
+                                            className={`transition duration-150 ${i === currentWordIndex ? "bg-indigo-200" : ""}`}
+                                        >
+                                            {word + " "}
+                                        </span>
+                                    ))}
+                                </div>
+
+                            </div>
+
+                            {/* Right Column: Users */}
+                            <div className="w-full lg:w-1/2 p-6 sm:p-10 bg-white">
+                                <div className="grid grid-cols-2 sm:grid-cols-2 gap-6">
+                                    {users.map((user) => (
+                                        <div
+                                            key={user.name}
+                                            onClick={() => {
+                                                setSelectedVoice(user);
+                                                setSelectedLang(user.lang);
+                                            }}
+                                            className="flex flex-col items-center text-center cursor-pointer"
+                                        >
+                                            <div
+                                                className={`rounded-full p-1 ${selectedVoice.name === user.name ? "ring-2 ring-black" : ""
+                                                    }`}
+                                            >
+                                                <img
+                                                    src={user.img}
+                                                    alt={user.name}
+                                                    className="w-16 h-16 rounded-full object-cover"
+                                                />
+                                            </div>
+                                            <div className="text-sm font-medium mt-2">{user.name}</div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Play Button */}
+                            <div className="absolute bottom-6 right-6 flex gap-4">
+                                <button
+                                    className="bg-black text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-indigo-700 transition"
+                                    onClick={playText}
+                                    title="Play"
+                                >
+                                    <FaPlay />
+                                </button>
+                                {isSpeaking && (
+                                    <button
+                                        className="bg-red-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-red-700 transition"
+                                        onClick={stopText}
+                                        title="Stop"
+                                    >
+                                        ×
+                                    </button>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-
+            </>
             {/* Use Case Section */}
             <section className="py-24">
                 <div className="max-w-6xl mx-auto text-center">
@@ -366,13 +389,6 @@ export default function Hero() {
                 </div>
             </section>
 
-            <div className="flex justify-center mt-12">
-                <ModalVideo
-                    videoSrc="https://www.youtube.com/embed/O51IYtV9oQY?autoplay=1"
-                    thumb="https://img.youtube.com/vi/O51IYtV9oQY/maxresdefault.jpg"
-                    alt="Watch Demo"
-                />
-            </div>
         </>
     );
 }

@@ -8,7 +8,7 @@ export default function Header() {
           {/* Logo / Branding */}
           <div className="flex flex-1 items-center text-black font-semibold text-lg tracking-wide">
             <Link to="/" className="hover:text-indigo-600 transition duration-150">
-              Scan & Go
+              ScanMeAI
             </Link>
           </div>
 

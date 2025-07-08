@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ModalVideo from "./ModalVideo"; // Make sure path is correct
+import ModalVideo from "./ModalVideo"; // Ensure correct path
 import {
   FaHospital,
   FaUniversity,
@@ -14,13 +14,14 @@ export default function UseCasesSection({ useCases }) {
   const [openVideoIndex, setOpenVideoIndex] = useState(null);
 
   return (
-    <section className="py-24">
+    <section className="py-24 relative z-10">
       <div className="max-w-6xl mx-auto text-center">
         <div className="w-full border-t border-gray-300 relative z-10">
           <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white px-4 text-black text-sm font-semibold tracking-wider uppercase">
             Use Cases
           </div>
         </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
           {useCases.map((useCase, index) => (
             <div
@@ -53,20 +54,22 @@ export default function UseCasesSection({ useCases }) {
               >
                 Watch video
               </button>
-
-              {/* Modal Lightbox for Video */}
-              {openVideoIndex === index && (
-                <ModalVideo
-                  videoSrc={useCase.videoLink.replace("youtu.be/", "www.youtube.com/embed/") + "?autoplay=1"}
-                  thumb=""
-                  alt={useCase.title}
-                  onClose={() => setOpenVideoIndex(null)}
-                />
-              )}
             </div>
           ))}
         </div>
       </div>
+
+      {/* Global Modal rendered outside the list */}
+      {openVideoIndex !== null && (
+        <ModalVideo
+          videoSrc={
+            useCases[openVideoIndex].videoLink.replace("youtu.be/", "www.youtube.com/embed/") +
+            "?autoplay=1"
+          }
+          alt={useCases[openVideoIndex].title}
+          onClose={() => setOpenVideoIndex(null)}
+        />
+      )}
     </section>
   );
 }

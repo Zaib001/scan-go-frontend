@@ -6,9 +6,9 @@ import ModalVideo from "./ModalVideo";
 
 export default function HowItWorks() {
 
-  const [openVideoIndex,setOpenVideoIndex] = useState("");
+  const [openVideoIndex, setOpenVideoIndex] = useState("");
 
-  
+
   useEffect(() => {
     AOS.init({ duration: 700, once: true });
   }, []);
@@ -86,7 +86,7 @@ export default function HowItWorks() {
 
         {openVideoIndex === "how-it-works" && (
           <ModalVideo
-            videoSrc="https://youtu.be/tPI9c3Ys8AA"
+            videoSrc="https://www.youtube.com/embed/tPI9c3Ys8AA?autoplay=1"
             isOpen={true}
             onClose={() => setOpenVideoIndex(null)}
           />
