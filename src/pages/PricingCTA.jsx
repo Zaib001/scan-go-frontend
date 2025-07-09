@@ -70,9 +70,15 @@ export default function PricingCTA() {
           If you don’t get exactly what you expect — for any reason — just drop us an e-mail within 30 days and we’ll refund your money, no questions asked.
         </p>
         <p className="text-gray-600 mb-4">Want a personalized tour for your space?</p>
-        <button className="bg-gray-900 hover:bg-gray-800 text-white px-6 py-2 rounded-md transition">
-          Schedule Demo
-        </button>
+       <a
+            onClick={() => {
+              const section = document.getElementById("try-it-section");
+              section?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="cursor-pointer bg-gray-700 hover:bg-gray-600 text-indigo-100 border border-indigo-500/40 px-6 py-3 rounded-lg transition"
+          >
+            Schedule a Demo
+          </a>
       </div>
     </section>
   );

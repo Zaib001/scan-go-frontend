@@ -74,30 +74,35 @@ const useCases = [
 // Main Demo Users
 const users = [
     {
-        name: "Ali",
-        img: "https://website.cdn.speechify.com/en-US-Henry-Speechify-gpttts.webp?quality=95&width=256",
-        lang: "English",
+        name: "Luci",
+        img: "https://res.cloudinary.com/sagacity/image/upload/c_crop,h_1000,w_680,x_0,y_0/c_scale,w_640/v1401241064/ladies-of-london-noelle_jaauni.jpg",
         gender: "male",
-    },
-    {
-        name: "Sarah",
-        img: "https://vms.cdn.speechify.com/avatars/ece5b30a-2994-4f0a-bb7f-63debd021037.webp",
-        lang: "Spanish",
-        gender: "female",
+        voiceName: "Google US English", // Adjust based on available voices
+        langCode: "en-US"
     },
     {
         name: "Leo",
         img: "https://vms.cdn.speechify.com/avatars/66f6e964-a260-4cf6-8d95-8ca9365208c0.webp",
-        lang: "French",
+        gender: "female",
+        voiceName: "Google Español", // Adjust as needed
+        langCode: "es-ES"
+    },
+    {
+        name: "Maya",
+        img: "https://i.pinimg.com/736x/dd/ee/5f/ddee5f30bef9cf6065ac939d21f443b5.jpg",
         gender: "male",
+        voiceName: "Google Français", // Adjust as needed
+        langCode: "fr-FR"
     },
     {
         name: "Mia",
         img: "https://website.cdn.speechify.com/Kristy.webp?quality=95&width=256",
-        lang: "German",
         gender: "female",
+        voiceName: "Google Deutsch", // Adjust as needed
+        langCode: "de-DE"
     },
 ];
+
 
 const languages = ["English", "Spanish", "French", "German"];
 
@@ -138,12 +143,13 @@ Wir helfen Organisationen wie Ihrer, jeden beliebigen Text einfach in gesprochen
 
 export default function Hero() {
     const [selectedVoice, setSelectedVoice] = useState(users[0]);
-    const [selectedLang, setSelectedLang] = useState(users[0].lang);
+    const [selectedLang, setSelectedLang] = useState("English");
     const [showLangMenu, setShowLangMenu] = useState(false);
     const [voices, setVoices] = useState([]);
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [openVideoIndex, setOpenVideoIndex] = useState(null);
     const [currentWordIndex, setCurrentWordIndex] = useState(null);
+    const [isVideoOpen, setIsVideoOpen] = useState(false);
     const wordRefs = useRef([]);
 
     useEffect(() => {
@@ -156,29 +162,29 @@ export default function Hero() {
 
     const playText = () => {
         const utterance = new SpeechSynthesisUtterance(translations[selectedLang]);
-        utterance.voice = speechSynthesis.getVoices().find(v => v.name === selectedVoice.voiceName);
-        utterance.lang = selectedVoice.langCode;
+
+        utterance.lang = selectedVoice.langCode || "en-US";
+
+        const availableVoices = speechSynthesis.getVoices();
+        const voice = availableVoices.find(v => v.name === selectedVoice.voiceName);
+
+        utterance.voice = voice || null;
         utterance.rate = 1;
 
         setIsSpeaking(true);
         setCurrentWordIndex(null);
-        function isInViewport(element) {
-            const rect = element.getBoundingClientRect();
-            return (
-                rect.top >= 0 &&
-                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
-            );
-        }
 
-        // Highlight words
         utterance.onboundary = (event) => {
             if (event.name === "word") {
-                const textBefore = translations[selectedLang].slice(0, event.charIndex);
+                const text = translations[selectedLang];
+                if (!text) return;
+
+                const textBefore = text.slice(0, event.charIndex);
                 const wordIndex = textBefore.split(" ").length - 1;
                 setCurrentWordIndex(wordIndex);
 
                 const wordElement = wordRefs.current[wordIndex];
-                if (wordElement && !isInViewport(wordElement)) {
+                if (wordElement && wordElement.scrollIntoView) {
                     wordElement.scrollIntoView({ behavior: "smooth", block: "center" });
                 }
             }
@@ -190,9 +196,11 @@ export default function Hero() {
             setCurrentWordIndex(null);
         };
 
-        speechSynthesis.cancel(); // Cancel any ongoing speech
+        speechSynthesis.cancel();
         speechSynthesis.speak(utterance);
     };
+
+
 
 
     const stopText = () => {
@@ -211,10 +219,45 @@ export default function Hero() {
                         Our AI-powered narrators help you deliver engaging, accessible, and personalized audio experiences—no app required.
                     </p>
 
-                    {/* CTA */}
-                    <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full flex items-center gap-2 justify-center mx-auto mb-16 shadow-lg hover:scale-105 transition">
+                    {/* 🆕 Two-Column Row */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center text-left mb-16">
+                        {/* Left: Text */}
+                        <div className="text-gray-700 text-base md:text-lg leading-relaxed">
+                            <p>
+                                Whether you're enhancing a museum tour, providing multilingual support in healthcare, or enriching garden visits, our AI voice solution adapts to your audience — instantly.
+                            </p>
+                            <p className="mt-4">
+                                Just scan a QR code to start — no downloads, no complexity. Empower visitors with inclusive, dynamic audio experiences tailored to every context.
+                            </p>
+                        </div>
+
+                        {/* Right: Video Thumbnail */}
+                        <div className="relative group rounded-xl overflow-hidden shadow-lg cursor-pointer w-full max-w-lg mx-auto"
+                            onClick={() => setIsVideoOpen(true)}
+                        >
+                            <img
+                                src="https://img.youtube.com/vi/O51IYtV9oQY/maxresdefault.jpg"
+                                alt="How It Works"
+                                className="w-full h-auto object-cover"
+                            />
+                            <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center group-hover:bg-opacity-50 transition">
+                                <div className="bg-white text-black p-4 rounded-full shadow-lg">
+                                    <FaPlay className="w-6 h-6" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* CTA Button */}
+                    <button
+                        className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full flex items-center gap-2 justify-center mx-auto mb-16 shadow-lg hover:scale-105 transition"
+                        onClick={() => {
+                            const section = document.getElementById("try-it-section");
+                            section?.scrollIntoView({ behavior: "smooth" });
+                        }}
+                    >
                         <FaPlay className="text-white" />
-                        <Link to='cards'>Try the Demo</Link>
+                        Try the Demo
                     </button>
 
                     {/* Grid of Profiles */}
@@ -235,12 +278,22 @@ export default function Hero() {
                         ))}
                     </div>
                 </div>
+
+                {/* Fullscreen Modal Video */}
+                {isVideoOpen && (
+                    <ModalVideo
+                        videoSrc="https://www.youtube.com/embed/O51IYtV9oQY?autoplay=1"
+                        alt="How It Works"
+                        isOpen={true}
+                        onClose={() => setIsVideoOpen(false)}
+                    />
+                )}
             </div>
 
             {/* === Main TTS Section === */}
             <>
 
-                <div className="min-h-screen bg-white flex items-center justify-center py-12 px-4">
+                <div className="min-h-screen bg-white flex items-center justify-center py-12 px-4" id="try-it-section">
 
                     <div className="relative max-w-6xl w-full bg-white rounded-3xl shadow-2xl flex flex-col lg:flex-row overflow-hidden border border-gray-200">
                         <div className="absolute top-0 left-0 w-full text-center py-4 bg-white z-20 border-b border-gray-200">
@@ -250,7 +303,7 @@ export default function Hero() {
                             {/* Left Column */}
                             <div className="w-full lg:w-1/2 p-6 sm:p-10">
                                 {/* Language Dropdown */}
-                                <div className="relative inline-block text-left mb-6">
+                                <div className="relative inline-block text-left mb-8 mt-3">
                                     <button
                                         onClick={() => setShowLangMenu(!showLangMenu)}
                                         className="inline-flex justify-between items-center bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-full text-sm font-medium text-gray-800 w-48"
@@ -279,15 +332,17 @@ export default function Hero() {
                                 </div>
 
                                 <div className="mt-4 text-gray-800 text-base leading-relaxed whitespace-pre-wrap">
-                                    {translations[selectedLang].split(" ").map((word, i) => (
-                                        <span
-                                            key={i}
-                                            ref={(el) => (wordRefs.current[i] = el)}
-                                            className={`transition duration-150 ${i === currentWordIndex ? "bg-indigo-200" : ""}`}
-                                        >
-                                            {word + " "}
-                                        </span>
-                                    ))}
+                                    {translations[selectedLang] &&
+                                        translations[selectedLang].split(" ").map((word, i) => (
+                                            <span
+                                                key={i}
+                                                ref={(el) => (wordRefs.current[i] = el)}
+                                                className={`transition duration-150 ${i === currentWordIndex ? "bg-indigo-200" : ""}`}
+                                            >
+                                                {word + " "}
+                                            </span>
+                                        ))}
+
                                 </div>
 
                             </div>
@@ -300,7 +355,6 @@ export default function Hero() {
                                             key={user.name}
                                             onClick={() => {
                                                 setSelectedVoice(user);
-                                                setSelectedLang(user.lang);
                                             }}
                                             className="flex flex-col items-center text-center cursor-pointer"
                                         >
@@ -321,9 +375,9 @@ export default function Hero() {
                             </div>
 
                             {/* Play Button */}
-                            <div className="absolute bottom-6 right-6 flex gap-4">
+                            <div className="absolute top-32 left-64 flex gap-4 z-10">
                                 <button
-                                    className="bg-black text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-indigo-700 transition"
+                                    className="bg-black text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:bg-indigo-700 transition"
                                     onClick={playText}
                                     title="Play"
                                 >
@@ -331,7 +385,7 @@ export default function Hero() {
                                 </button>
                                 {isSpeaking && (
                                     <button
-                                        className="bg-red-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-red-700 transition"
+                                        className="bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:bg-red-700 transition"
                                         onClick={stopText}
                                         title="Stop"
                                     >
@@ -339,23 +393,25 @@ export default function Hero() {
                                     </button>
                                 )}
                             </div>
+
                         </div>
                     </div>
                 </div>
             </>
             {/* Use Case Section */}
-            <section className="py-24">
+            <section className="py-24 relative z-10">
                 <div className="max-w-6xl mx-auto text-center">
                     <div className="w-full border-t border-gray-300 relative z-10">
                         <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white px-4 text-black text-sm font-semibold tracking-wider uppercase">
                             Use Cases
                         </div>
                     </div>
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
                         {useCases.map((useCase, index) => (
                             <div
                                 key={index}
-                                className="bg-white rounded-xl shadow-xl p-6 transition-all transform hover:scale-105 hover:shadow-2xl hover:bg-indigo-100 hover:transition-all duration-300 ease-in-out"
+                                className="bg-white rounded-xl shadow-xl p-6 transition-all transform hover:scale-105 hover:shadow-2xl hover:bg-indigo-100 hover:transition-all duration-300 ease-in-out flex flex-col justify-between"
                                 data-aos="fade-up"
                                 data-aos-delay={index * 100}
                             >
@@ -376,26 +432,37 @@ export default function Hero() {
                                 </h3>
                                 <p className="text-gray-600 text-lg mb-4">{useCase.description}</p>
 
-                                {/* Watch Video Button */}
-                                <button
-                                    onClick={() => setOpenVideoIndex(index)}
-                                    className="inline-block text-indigo-600 font-medium hover:text-indigo-800 hover:underline transition"
-                                >
-                                    Watch video
-                                </button>
-
-                                {/* Modal Lightbox for Video */}
-                                {openVideoIndex === index && (
-                                    <ModalVideo
-                                        videoSrc={useCase.videoLink.replace("youtu.be/", "www.youtube.com/embed/") + "?autoplay=1"}
-                                        isOpen={openVideoIndex === index}
-                                        onClose={() => setOpenVideoIndex(null)}
-                                    />
-                                )}
+                                {/* Video Thumbnail */}
+                                <div className="relative w-full h-48 rounded-lg overflow-hidden mt-auto">
+                                    <button
+                                        onClick={() => setOpenVideoIndex(index)}
+                                        className="absolute inset-0 group w-full h-full"
+                                    >
+                                        <img
+                                            src={`https://img.youtube.com/vi/${useCase.videoLink.split("youtu.be/")[1]}/mqdefault.jpg`}
+                                            alt={`Preview for ${useCase.title}`}
+                                            className="w-full h-full object-cover"
+                                        />
+                                        <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center group-hover:bg-opacity-50 transition">
+                                            <div className="bg-white text-black p-3 rounded-full shadow-lg">
+                                                <FaPlay className="w-5 h-5" />
+                                            </div>
+                                        </div>
+                                    </button>
+                                </div>
                             </div>
                         ))}
                     </div>
                 </div>
+
+                {/* Global Modal outside the grid */}
+                {openVideoIndex !== null && (
+                    <ModalVideo
+                        videoSrc={useCases[openVideoIndex].videoLink.replace("youtu.be/", "www.youtube.com/embed/") + "?autoplay=1"}
+                        alt={useCases[openVideoIndex].title}
+                        onClose={() => setOpenVideoIndex(null)}
+                    />
+                )}
             </section>
 
         </>

@@ -13,17 +13,18 @@ const Home = () => {
 
 
   return (
-      <div>
+    <div>
       <Header />
       <Hero />
-      
+
       <Features />
-      <HowItWorks/>
-      <PricingCTA/>
-      <Testimonials/>
-      <Faqs/>
-      <FinalCTA/>
-      <Footer/>
+      <HowItWorks />
+      <PricingCTA />
+      <Faqs />
+
+      <Testimonials />
+      <FinalCTA />
+      <Footer />
     </div>
   );
 };

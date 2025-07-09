@@ -4,7 +4,7 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
         {/* Branding */}
         <div className="text-lg font-semibold text-white">
-          Scan & Go<span className="text-indigo-400">.</span>
+          ScanMeAI.com<span className="text-indigo-400">.</span>
         </div>
 
         {/* Links */}
@@ -16,7 +16,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="text-xs text-white text-center md:text-right">
-          &copy; {new Date().getFullYear()} Scan & Go. All rights reserved.
+          &copy; {new Date().getFullYear()} ScanMeAI.com, All rights reserved.
         </div>
       </div>
     </footer>

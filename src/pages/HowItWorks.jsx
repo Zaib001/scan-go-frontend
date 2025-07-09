@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { FaQrcode, FaHeadphones, FaCloudDownloadAlt } from "react-icons/fa";
+import { FaQrcode, FaHeadphones, FaCloudDownloadAlt, FaPlay } from "react-icons/fa";
 import ModalVideo from "./ModalVideo";
 
 export default function HowItWorks() {
-
-  const [openVideoIndex, setOpenVideoIndex] = useState("");
-
+  const [openVideoIndex, setOpenVideoIndex] = useState(null);
 
   useEffect(() => {
     AOS.init({ duration: 700, once: true });
@@ -58,12 +56,9 @@ export default function HowItWorks() {
             data-aos-delay={idx * 150}
             className="relative pl-14 flex items-start group"
           >
-            {/* Step Number */}
             <div className="absolute left-0 top-0 flex items-center justify-center w-10 h-10 rounded-full bg-black text-white text-sm font-semibold shadow-md">
               {idx + 1}
             </div>
-
-            {/* Card */}
             <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-md transition-transform duration-300 group-hover:scale-[1.02] w-full">
               <div className="flex items-center gap-4 mb-3 text-black">
                 {step.icon}
@@ -75,15 +70,25 @@ export default function HowItWorks() {
         ))}
       </div>
 
-      {/* Optional Video CTA */}
+      {/* Video Thumbnail Preview instead of Button */}
       <div className="text-center mt-16">
         <button
+          className="relative group max-w-3xl mx-auto block rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-transform transform hover:scale-105"
           onClick={() => setOpenVideoIndex("how-it-works")}
-          className="inline-block bg-black hover:bg-indigo-700 text-white px-6 py-3 rounded-full font-medium transition"
         >
-          Watch How It Works
+          <img
+            src="https://img.youtube.com/vi/tPI9c3Ys8AA/maxresdefault.jpg"
+            alt="How It Works"
+            className="w-full h-auto object-cover"
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center group-hover:bg-opacity-50 transition">
+            <div className="bg-white text-black p-4 rounded-full shadow-lg">
+              <FaPlay className="w-6 h-6" />
+            </div>
+          </div>
         </button>
 
+        {/* Modal Lightbox */}
         {openVideoIndex === "how-it-works" && (
           <ModalVideo
             videoSrc="https://www.youtube.com/embed/tPI9c3Ys8AA?autoplay=1"
@@ -92,7 +97,6 @@ export default function HowItWorks() {
           />
         )}
       </div>
-
     </section>
   );
 }
