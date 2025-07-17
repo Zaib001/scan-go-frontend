@@ -71,32 +71,7 @@ export default function HowItWorks() {
       </div>
 
       {/* Video Thumbnail Preview instead of Button */}
-      <div className="text-center mt-16">
-        <button
-          className="relative group max-w-3xl mx-auto block rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-transform transform hover:scale-105"
-          onClick={() => setOpenVideoIndex("how-it-works")}
-        >
-          <img
-            src="https://img.youtube.com/vi/tPI9c3Ys8AA/maxresdefault.jpg"
-            alt="How It Works"
-            className="w-full h-auto object-cover"
-          />
-          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center group-hover:bg-opacity-50 transition">
-            <div className="bg-white text-black p-4 rounded-full shadow-lg">
-              <FaPlay className="w-6 h-6" />
-            </div>
-          </div>
-        </button>
-
-        {/* Modal Lightbox */}
-        {openVideoIndex === "how-it-works" && (
-          <ModalVideo
-            videoSrc="https://www.youtube.com/embed/tPI9c3Ys8AA?autoplay=1"
-            isOpen={true}
-            onClose={() => setOpenVideoIndex(null)}
-          />
-        )}
-      </div>
+     
     </section>
   );
 }

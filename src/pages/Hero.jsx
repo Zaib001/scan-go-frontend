@@ -3,29 +3,87 @@ import { FaHospital, FaPlay, FaUniversity, FaChevronDown, FaPaintBrush, FaSeedli
 import ModalVideo from "./ModalVideo";
 import { Link } from "react-router-dom";
 
-const scanVoices = [
+const user = [
+    // English Accents
     {
-        name: "Lina Khoury",
-        role: "Multilingual Voice Artist",
-        img: "https://randomuser.me/api/portraits/women/44.jpg",
+        name: "Emma ",
+        img: "https://randomuser.me/api/portraits/women/65.jpg",
+        gender: "female",
+        voiceName: "Google US English",
+        langCode: "en-US"
     },
     {
-        name: "James Okoro",
-        role: "Accessibility Advocate",
+        name: "Brian",
         img: "https://randomuser.me/api/portraits/men/32.jpg",
+        gender: "male",
+        voiceName: "Google UK English Male",
+        langCode: "en-GB"
     },
     {
-        name: "Sofia Martens",
-        role: "Cultural Curator",
-        img: "https://randomuser.me/api/portraits/women/68.jpg",
+        name: "Ronin",
+        img: "https://randomuser.me/api/portraits/men/6.jpg",
+        gender: "male",
+        voiceName: "Microsoft Mark - English (United States)",
+        langCode: "en-AU"
+    },
+   
+    {
+        name: "Linda",
+        img: "https://randomuser.me/api/portraits/women/82.jpg",
+        gender: "female",
+        voiceName: "Google Nederlands",
+        langCode: "en-CA"
+    },
+    // Spanish Voices
+    {
+        name: "Juan",
+        img: "https://randomuser.me/api/portraits/men/22.jpg",
+        gender: "male",
+        voiceName: "Google español",
+        langCode: "es-ES"
     },
     {
-        name: "Arjun Patel",
-        role: "Educational Voice Guide",
-        img: "https://randomuser.me/api/portraits/men/75.jpg",
+        name: "Lucía",
+        img: "https://randomuser.me/api/portraits/women/33.jpg",
+        gender: "female",
+        voiceName: "Google español de Estados Unidos",
+        langCode: "es-US"
     },
+    // French Voices
+    {
+        name: "Pierre",
+        img: "https://randomuser.me/api/portraits/men/41.jpg",
+        gender: "male",
+        voiceName: "Google français",
+        langCode: "fr-FR"
+    },
+    {
+        name: "Sophie ",
+        img: "https://randomuser.me/api/portraits/women/44.jpg",
+        gender: "female",
+        voiceName: "Google français",
+        langCode: "fr-FR"
+    },
+    // German Voices
+    {
+        name: "Hans",
+        img: "https://randomuser.me/api/portraits/men/55.jpg",
+        gender: "male",
+        voiceName: "Google Deutsch",
+        langCode: "de-DE"
+    },
+    {
+        name: "Anna",
+        img: "https://randomuser.me/api/portraits/women/66.jpg",
+        gender: "female",
+        voiceName: "Google Deutsch",
+        langCode: "de-DE"
+    }
 ];
-// Use Cases Data
+
+
+
+
 const useCases = [
     {
         title: "Hospitals",
@@ -43,65 +101,34 @@ const useCases = [
         title: "Art Galleries",
         description:
             "Deepen the Connection with Every Artwork. Allow your visitors to explore the emotional and technical nuances of each piece through accessible audio and multi-language translations.",
-        videoLink: "https://youtu.be/O51IYtV9oQY", // Replace with actual link
+        videoLink: "https://youtu.be/cAhOO766KMs",
     },
     {
         title: "Garden Centres",
         description:
             "Grow Customer Success and Loyalty. Empower every customer to become a more confident and successful gardener by offering instant audio advice about plant care, right from the pot.",
-        videoLink: "https://youtu.be/O51IYtV9oQY", // Replace with actual link
+        videoLink: "https://youtu.be/VGRf3eldUcA",
     },
     {
         title: "Education",
         description:
             "Revolutionize Learning. Empower students with accessible, engaging audio lessons and multi-language translations, making learning personalized and inclusive for every student.",
-        videoLink: "https://youtu.be/O51IYtV9oQY", // Replace with actual link
+        videoLink: "https://youtu.be/30aq5ABwnY4",
     },
     {
         title: "Tourism - Hotels & Attractions",
         description:
             "Elevate the guest experience by providing instant, personalized information about hotel services, amenities, and local attractions in multiple languages through QR codes.",
-        videoLink: "https://youtu.be/O51IYtV9oQY", // Replace with actual link
+        videoLink: "https://youtu.be/Dh_eAFyraPg",
     },
     {
         title: "Local Councils",
         description:
             "Connect with Every Citizen. Ensure all public information and services are accessible to everyone, regardless of language barriers, through accessible audio and translations.",
-        videoLink: "https://youtu.be/O51IYtV9oQY", // Replace with actual link
+        videoLink: "https://youtu.be/CXa0i5vaWBg",
     },
 ];
 
-// Main Demo Users
-const users = [
-    {
-        name: "Luci",
-        img: "https://res.cloudinary.com/sagacity/image/upload/c_crop,h_1000,w_680,x_0,y_0/c_scale,w_640/v1401241064/ladies-of-london-noelle_jaauni.jpg",
-        gender: "male",
-        voiceName: "Google US English", // Adjust based on available voices
-        langCode: "en-US"
-    },
-    {
-        name: "Leo",
-        img: "https://vms.cdn.speechify.com/avatars/66f6e964-a260-4cf6-8d95-8ca9365208c0.webp",
-        gender: "female",
-        voiceName: "Google Español", // Adjust as needed
-        langCode: "es-ES"
-    },
-    {
-        name: "Maya",
-        img: "https://i.pinimg.com/736x/dd/ee/5f/ddee5f30bef9cf6065ac939d21f443b5.jpg",
-        gender: "male",
-        voiceName: "Google Français", // Adjust as needed
-        langCode: "fr-FR"
-    },
-    {
-        name: "Mia",
-        img: "https://website.cdn.speechify.com/Kristy.webp?quality=95&width=256",
-        gender: "female",
-        voiceName: "Google Deutsch", // Adjust as needed
-        langCode: "de-DE"
-    },
-];
 
 
 const languages = ["English", "Spanish", "French", "German"];
@@ -125,7 +152,7 @@ Ayudamos a organizaciones como la tuya a convertir fácilmente cualquier texto e
 
     French: `Transformez votre information en expériences accessibles
 
-Imaginez que vous êtes un visiteur dans un musée, entendant instantanément la description d'une exposition dans votre langue préférée simplement en scannant un code QR. Ou un patient dans un hôpital, écoutant des instructions de sortie cruciales dans sa langue natale. C’est le pouvoir des codes QR dynamiques avec synthèse vocale et traduction — un service qui peut révolutionner la manière dont votre entreprise communique.
+Imaginez que vous êtes un visiteur dans un musée, entendant instantanément la description d'une exposition dans votre langue préférée simplement en scannant un code QR. Ou un patient dans un hôpital, écoutant des instructions de sortie cruciales dans sa langue natale. C'est le pouvoir des codes QR dynamiques avec synthèse vocale et traduction — un service qui peut révolutionner la manière dont votre entreprise communique.
 
 Vous ne créez pas de nouveau contenu, vous débloquez simplement tout le potentiel de ce que vous avez déjà.
 
@@ -140,9 +167,8 @@ Sie erstellen keine neuen Inhalte – Sie nutzen einfach das volle Potenzial des
 Wir helfen Organisationen wie Ihrer, jeden beliebigen Text einfach in gesprochene Audios umzuwandeln und in mehrere Sprachen zu übersetzen – alles über einen einfachen QR-Code zugänglich. Keine statischen, einsprachigen Informationen mehr.`
 };
 
-
 export default function Hero() {
-    const [selectedVoice, setSelectedVoice] = useState(users[0]);
+    const [selectedVoice, setSelectedVoice] = useState(user[0]);
     const [selectedLang, setSelectedLang] = useState("English");
     const [showLangMenu, setShowLangMenu] = useState(false);
     const [voices, setVoices] = useState([]);
@@ -150,104 +176,304 @@ export default function Hero() {
     const [openVideoIndex, setOpenVideoIndex] = useState(null);
     const [currentWordIndex, setCurrentWordIndex] = useState(null);
     const [isVideoOpen, setIsVideoOpen] = useState(false);
+    const [isVideoOpen1, setIsVideoOpen1] = useState(false);
     const wordRefs = useRef([]);
+    const textContainerRef = useRef(null);
 
     useEffect(() => {
-        const loadVoices = () => setVoices(window.speechSynthesis.getVoices());
-        loadVoices();
-        if (typeof speechSynthesis !== "undefined") {
-            speechSynthesis.onvoiceschanged = loadVoices;
-        }
-    }, []);
+        const loadVoices = () => {
+            const voices = window.speechSynthesis.getVoices();
+            setVoices(voices);
 
-    const playText = () => {
-        const utterance = new SpeechSynthesisUtterance(translations[selectedLang]);
+            // Find the best available voice for the current selection
+            if (voices.length > 0) {
+                const findBestVoice = () => {
+                    // 1. Try exact match first
+                    const exactMatch = voices.find(v => v.name === selectedVoice.voiceName);
+                    if (exactMatch) return exactMatch;
 
-        utterance.lang = selectedVoice.langCode || "en-US";
+                    // 2. Try matching language and gender
+                    const langGenderMatch = voices.find(v =>
+                        v.lang === selectedVoice.langCode &&
+                        ((selectedVoice.gender === 'female' && (v.name.includes('Female') || v.name.includes('Woman'))) ||
+                            (selectedVoice.gender === 'male' && (v.name.includes('Male') || v.name.includes('Man'))))
+                    );
+                    if (langGenderMatch) return langGenderMatch;
 
-        const availableVoices = speechSynthesis.getVoices();
-        const voice = availableVoices.find(v => v.name === selectedVoice.voiceName);
+                    // 3. Try matching just language
+                    const langMatch = voices.find(v => v.lang === selectedVoice.langCode);
+                    if (langMatch) return langMatch;
 
-        utterance.voice = voice || null;
-        utterance.rate = 1;
+                    // 4. Fallback to first available voice
+                    return voices[0];
+                };
 
-        setIsSpeaking(true);
-        setCurrentWordIndex(null);
-
-        utterance.onboundary = (event) => {
-            if (event.name === "word") {
-                const text = translations[selectedLang];
-                if (!text) return;
-
-                const textBefore = text.slice(0, event.charIndex);
-                const wordIndex = textBefore.split(" ").length - 1;
-                setCurrentWordIndex(wordIndex);
-
-                const wordElement = wordRefs.current[wordIndex];
-                if (wordElement && wordElement.scrollIntoView) {
-                    wordElement.scrollIntoView({ behavior: "smooth", block: "center" });
+                const bestVoice = findBestVoice();
+                if (bestVoice && bestVoice.name !== selectedVoice.voiceName) {
+                    setSelectedVoice(prev => ({
+                        ...prev,
+                        voiceName: bestVoice.name,
+                        langCode: bestVoice.lang
+                    }));
                 }
             }
         };
 
+        loadVoices();
+        window.speechSynthesis.onvoiceschanged = loadVoices;
 
-        utterance.onend = () => {
-            setIsSpeaking(false);
-            setCurrentWordIndex(null);
+        return () => {
+            window.speechSynthesis.onvoiceschanged = null;
         };
+    }, [selectedVoice]);
+useEffect(() => {
+    console.log("Available voices:", window.speechSynthesis.getVoices());
+}, []);
+ const playText = () => {
+    if (isSpeaking) {
+        stopText();
+        return;
+    }
 
-        speechSynthesis.cancel();
-        speechSynthesis.speak(utterance);
+    const text = translations[selectedLang];
+    if (!text) return;
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = selectedVoice.langCode;
+
+    // Voice selection logic (keep your existing code)
+    const availableVoices = window.speechSynthesis.getVoices();
+    let voice = availableVoices.find(v => v.name === selectedVoice.voiceName);
+    
+    if (!voice) {
+        voice = availableVoices.find(v =>
+            v.lang === selectedVoice.langCode &&
+            ((selectedVoice.gender === 'female' && (v.name.includes('Female') || v.name.includes('Woman'))) ||
+             (selectedVoice.gender === 'male' && (v.name.includes('Male') || v.name.includes('Man'))))
+        );
+    }
+    
+    if (!voice) {
+        voice = availableVoices.find(v => v.lang === selectedVoice.langCode);
+    }
+    
+    if (!voice) {
+        voice = availableVoices[0];
+        console.warn("Using fallback voice:", voice);
+    }
+
+    if (voice) {
+        utterance.voice = voice;
+        console.log("Using voice:", voice.name);
+    }
+
+    utterance.rate = 0.9;
+    utterance.pitch = 1;
+
+    setIsSpeaking(true);
+    setCurrentWordIndex(null);
+
+    // Reset all highlights
+    wordRefs.current.forEach(el => {
+        if (el) {
+            el.style.backgroundColor = 'transparent';
+            el.style.fontWeight = 'normal';
+        }
+    });
+
+    // Improved word splitting that preserves whitespace
+    const wordRegex = /(\S+|\s+)/g;
+    const words = [];
+    let match;
+    while ((match = wordRegex.exec(text)) !== null) {
+        words.push(match[0]);
+    }
+
+    // Create word boundaries
+    let wordBoundaries = [];
+    let currentPos = 0;
+    words.forEach((word, index) => {
+        wordBoundaries.push({
+            start: currentPos,
+            end: currentPos + word.length,
+            word: word,
+            index: index
+        });
+        currentPos += word.length;
+    });
+
+    // Store the last highlighted index to prevent duplicate highlights
+    let lastHighlightedIndex = null;
+
+    utterance.onboundary = (event) => {
+        if (event.name !== 'word') return;
+
+        const charIndex = event.charIndex;
+        
+        // Find the current word
+        const currentWord = wordBoundaries.find(w => 
+            charIndex >= w.start && charIndex < w.end
+        );
+
+        if (currentWord && currentWord.index !== lastHighlightedIndex) {
+            setCurrentWordIndex(currentWord.index);
+            lastHighlightedIndex = currentWord.index;
+
+            // Highlight current word
+            wordRefs.current.forEach((el, idx) => {
+                if (el) {
+                    const shouldHighlight = idx === currentWord.index;
+                    el.style.backgroundColor = shouldHighlight ? '#a5b4fc' : 'transparent';
+                    el.style.fontWeight = shouldHighlight ? 'bold' : 'normal';
+                    el.style.transition = 'background-color 0.2s ease';
+                    
+                    // For better visibility, you can add more styling
+                    if (shouldHighlight) {
+                        el.style.padding = '2px 4px';
+                        el.style.borderRadius = '4px';
+                    } else {
+                        el.style.padding = '0';
+                    }
+                }
+            });
+
+            // Scroll to word
+            const wordElement = wordRefs.current[currentWord.index];
+            if (wordElement && textContainerRef.current) {
+                const container = textContainerRef.current;
+                const wordRect = wordElement.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+                
+                // Calculate scroll position to center the word
+                const scrollTop = wordRect.top - containerRect.top + container.scrollTop - (containerRect.height / 3);
+                container.scrollTo({ 
+                    top: scrollTop, 
+                    behavior: 'smooth' 
+                });
+            }
+        }
     };
 
+    utterance.onend = () => {
+        setIsSpeaking(false);
+        setCurrentWordIndex(null);
+        lastHighlightedIndex = null;
+        
+        // Reset all highlights when done
+        wordRefs.current.forEach(el => {
+            if (el) {
+                el.style.backgroundColor = 'transparent';
+                el.style.fontWeight = 'normal';
+                el.style.padding = '0';
+            }
+        });
+    };
 
+    utterance.onerror = (event) => {
+        console.error('SpeechSynthesis error:', event);
+        setIsSpeaking(false);
+        setCurrentWordIndex(null);
+        lastHighlightedIndex = null;
+    };
 
+    speechSynthesis.cancel();
+    speechSynthesis.speak(utterance);
+};
 
     const stopText = () => {
         window.speechSynthesis.cancel();
         setIsSpeaking(false);
+        setCurrentWordIndex(null);
+        wordRefs.current.forEach(el => {
+            if (el) {
+                el.style.backgroundColor = 'transparent';
+                el.style.fontWeight = 'normal';
+            }
+        });
     };
+
+    const isVoiceAvailable = (userVoice) => {
+        const availableVoices = window.speechSynthesis.getVoices();
+
+        // If no voices loaded yet, assume available (will be checked again later)
+        if (availableVoices.length === 0) return true;
+
+        return availableVoices.some(v => {
+            // First try exact match
+            if (v.name === userVoice.voiceName) return true;
+
+            // Then try language match with voice characteristics
+            if (v.lang === userVoice.langCode) {
+                // Check for gender indicators in voice name
+                const voiceGender =
+                    v.name.toLowerCase().includes('female') ||
+                        v.name.toLowerCase().includes('woman') ? 'female' :
+                        v.name.toLowerCase().includes('male') ||
+                            v.name.toLowerCase().includes('man') ? 'male' : null;
+
+                // If gender matches or can't be determined, consider it a match
+                return !voiceGender || voiceGender === userVoice.gender;
+            }
+
+            return false;
+        });
+    };
+
+    // Filter voices based on selected language
+    const filteredUsers = user.filter(u => {
+        const langPrefix = selectedLang === "English" ? "en" :
+            selectedLang === "Spanish" ? "es" :
+                selectedLang === "French" ? "fr" :
+                    selectedLang === "German" ? "de" : "en";
+        return u.langCode.startsWith(langPrefix);
+    });
+
 
     return (
         <>
             <div className="bg-gradient-to-r from-white via-indigo-50 to-white py-20 px-6 mt-10">
                 <div className="max-w-6xl mx-auto text-center">
                     <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
-                        Make Every Voice Count
+                        Scan Me AI text to speech
                     </h2>
-                    <p className="text-lg md:text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
-                        Our AI-powered narrators help you deliver engaging, accessible, and personalized audio experiences—no app required.
-                    </p>
+
 
                     {/* 🆕 Two-Column Row */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center text-left mb-16">
                         {/* Left: Text */}
                         <div className="text-gray-700 text-base md:text-lg leading-relaxed">
+                            <h1 className="text-4xl font-extrabold mb-3">Bring Text to Life with audio</h1>
                             <p>
-                                Whether you're enhancing a museum tour, providing multilingual support in healthcare, or enriching garden visits, our AI voice solution adapts to your audience — instantly.
-                            </p>
+                                <strong>Just imagine</strong> how much written information you have produced in the lifetime of your business.
+
+                                Now reimagine it in an exciting new way that will really engage your customers and users.
+
+                                Scan Me AI is designed to transform your written information into an immersive, interactive <strong>audio experience and much more.</strong>                            </p>
                             <p className="mt-4">
-                                Just scan a QR code to start — no downloads, no complexity. Empower visitors with inclusive, dynamic audio experiences tailored to every context.
-                            </p>
+                                Scan Me AI will streamline setup and management for your staff and enrich visitor engagement through user-friendly interfaces, integrated marketing tools, and inclusive accessibility features.                            </p>
                         </div>
 
                         {/* Right: Video Thumbnail */}
-                        <div className="relative group rounded-xl overflow-hidden shadow-lg cursor-pointer w-full max-w-lg mx-auto"
+                        <div
+                            className="relative group rounded-xl overflow-hidden shadow-lg cursor-pointer w-full max-w-lg mx-auto"
                             onClick={() => setIsVideoOpen(true)}
                         >
                             <img
-                                src="https://img.youtube.com/vi/O51IYtV9oQY/maxresdefault.jpg"
+                                src="https://img.youtube.com/vi/y7JcoYQLTQQ/hqdefault.jpg"
                                 alt="How It Works"
                                 className="w-full h-auto object-cover"
                             />
+
                             <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center group-hover:bg-opacity-50 transition">
                                 <div className="bg-white text-black p-4 rounded-full shadow-lg">
                                     <FaPlay className="w-6 h-6" />
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
+                    <h1 className="m-10 text-2xl">Providing information in an <strong>audio format</strong> is crucial for accessibility, inclusivity, and engagement.
+                    </h1>
                     {/* CTA Button */}
                     <button
                         className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full flex items-center gap-2 justify-center mx-auto mb-16 shadow-lg hover:scale-105 transition"
@@ -261,29 +487,13 @@ export default function Hero() {
                     </button>
 
                     {/* Grid of Profiles */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-                        {scanVoices.map((person, index) => (
-                            <div
-                                key={index}
-                                className="bg-white rounded-lg shadow-md hover:shadow-xl p-4 transition duration-300 flex flex-col items-center text-center"
-                            >
-                                <img
-                                    src={person.img}
-                                    alt={person.name}
-                                    className="w-24 h-24 rounded-lg object-cover mb-4"
-                                />
-                                <h4 className="text-lg font-semibold text-gray-800">{person.name}</h4>
-                                <p className="text-sm text-gray-500">{person.role}</p>
-                            </div>
-                        ))}
-                    </div>
+
                 </div>
 
                 {/* Fullscreen Modal Video */}
                 {isVideoOpen && (
                     <ModalVideo
-                        videoSrc="https://www.youtube.com/embed/O51IYtV9oQY?autoplay=1"
-                        alt="How It Works"
+                        videoSrc="https://www.youtube.com/embed/y7JcoYQLTQQ?autoplay=1" alt="How It Works"
                         isOpen={true}
                         onClose={() => setIsVideoOpen(false)}
                     />
@@ -293,16 +503,15 @@ export default function Hero() {
             {/* === Main TTS Section === */}
             <>
 
-                <div className="min-h-screen bg-white flex items-center justify-center py-12 px-4" id="try-it-section">
-
+                <div className="min-h-screen bg-white flex items-center justify-center py-12 px-4">
                     <div className="relative max-w-6xl w-full bg-white rounded-3xl shadow-2xl flex flex-col lg:flex-row overflow-hidden border border-gray-200">
                         <div className="absolute top-0 left-0 w-full text-center py-4 bg-white z-20 border-b border-gray-200">
-                            <h2 className="text-2xl font-bold text-gray-800">Try it for yourself</h2>
+                            <h2 className="text-2xl font-bold text-gray-800">Text-to-Speech with Different Accents</h2>
                         </div>
+
                         <div className="flex flex-col lg:flex-row w-full pt-20">
-                            {/* Left Column */}
+                            {/* Left: Text + Language */}
                             <div className="w-full lg:w-1/2 p-6 sm:p-10">
-                                {/* Language Dropdown */}
                                 <div className="relative inline-block text-left mb-8 mt-3">
                                     <button
                                         onClick={() => setShowLangMenu(!showLangMenu)}
@@ -331,72 +540,76 @@ export default function Hero() {
                                     )}
                                 </div>
 
-                                <div className="mt-4 text-gray-800 text-base leading-relaxed whitespace-pre-wrap">
-                                    {translations[selectedLang] &&
-                                        translations[selectedLang].split(" ").map((word, i) => (
-                                            <span
-                                                key={i}
-                                                ref={(el) => (wordRefs.current[i] = el)}
-                                                className={`transition duration-150 ${i === currentWordIndex ? "bg-indigo-200" : ""}`}
-                                            >
-                                                {word + " "}
-                                            </span>
-                                        ))}
-
-                                </div>
-
-                            </div>
-
-                            {/* Right Column: Users */}
-                            <div className="w-full lg:w-1/2 p-6 sm:p-10 bg-white">
-                                <div className="grid grid-cols-2 sm:grid-cols-2 gap-6">
-                                    {users.map((user) => (
-                                        <div
-                                            key={user.name}
-                                            onClick={() => {
-                                                setSelectedVoice(user);
-                                            }}
-                                            className="flex flex-col items-center text-center cursor-pointer"
+                                <div
+                                    ref={textContainerRef}
+                                    className="mt-4 text-gray-800 text-base leading-relaxed whitespace-pre-wrap overflow-y-auto max-h-96"
+                                >
+                                    {translations[selectedLang]?.split(/(\s+)/).map((word, i) => (
+                                        <span
+                                            key={i}
+                                            ref={(el) => (wordRefs.current[i] = el)}
+                                            className="transition duration-150 px-1 rounded"
                                         >
-                                            <div
-                                                className={`rounded-full p-1 ${selectedVoice.name === user.name ? "ring-2 ring-black" : ""
-                                                    }`}
-                                            >
-                                                <img
-                                                    src={user.img}
-                                                    alt={user.name}
-                                                    className="w-16 h-16 rounded-full object-cover"
-                                                />
-                                            </div>
-                                            <div className="text-sm font-medium mt-2">{user.name}</div>
-                                        </div>
+                                            {word}
+                                        </span>
                                     ))}
                                 </div>
                             </div>
 
-                            {/* Play Button */}
+                            {/* Right: Voice Avatars */}
+                            <div className="w-full lg:w-1/2 p-6 sm:p-10 bg-white">
+                                <div className="grid grid-cols-2 sm:grid-cols-2 gap-6">
+                                    {filteredUsers.map((userItem) => {
+                                        const isAvailable = isVoiceAvailable(userItem);
+                                        const isSelected = selectedVoice.name === userItem.name;
+
+                                        return (
+                                            <div
+                                                key={userItem.name}
+                                                onClick={() => {
+                                                    if (isAvailable) {
+                                                        setSelectedVoice(userItem);
+                                                        stopText();
+                                                    }
+                                                }}
+                                                className={`flex flex-col items-center text-center cursor-pointer p-2 rounded-lg transition-all ${isSelected ? "bg-indigo-100 scale-105" : "hover:bg-gray-100"
+                                                    } ${!isAvailable ? "opacity-50 cursor-not-allowed" : ""
+                                                    }`}
+                                                title={!isAvailable ? "Exact voice not available in your browser" : ""}
+                                            >
+                                                <div className={`rounded-full p-1 transition-all ${isSelected ? "ring-2 ring-indigo-500" : ""
+                                                    }`}>
+                                                    <img
+                                                        src={userItem.img}
+                                                        alt={userItem.name}
+                                                        className="w-16 h-16 rounded-full object-cover"
+                                                    />
+                                                </div>
+                                                <div className="text-sm font-medium mt-2">{userItem.name}</div>
+                                                <div className="text-xs text-gray-500">{userItem.langCode.split('-')[0]}</div>
+                                                {!isAvailable && (
+                                                    <div className="text-xs text-yellow-500 mt-1">Using similar voice</div>
+                                                )}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+
+                            {/* Controls */}
                             <div className="absolute top-32 left-64 flex gap-4 z-10">
                                 <button
                                     className="bg-black text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:bg-indigo-700 transition"
                                     onClick={playText}
-                                    title="Play"
+                                    title={isSpeaking ? "Stop" : "Play"}
                                 >
-                                    <FaPlay />
+                                    {isSpeaking ? "■" : <FaPlay />}
                                 </button>
-                                {isSpeaking && (
-                                    <button
-                                        className="bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:bg-red-700 transition"
-                                        onClick={stopText}
-                                        title="Stop"
-                                    >
-                                        ×
-                                    </button>
-                                )}
                             </div>
-
                         </div>
                     </div>
                 </div>
+
             </>
             {/* Use Case Section */}
             <section className="py-24 relative z-10">
@@ -458,13 +671,63 @@ export default function Hero() {
                 {/* Global Modal outside the grid */}
                 {openVideoIndex !== null && (
                     <ModalVideo
+                        isOpen={true}
                         videoSrc={useCases[openVideoIndex].videoLink.replace("youtu.be/", "www.youtube.com/embed/") + "?autoplay=1"}
                         alt={useCases[openVideoIndex].title}
                         onClose={() => setOpenVideoIndex(null)}
                     />
+
                 )}
             </section>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center text-left mb-16 px-44">
+                {/* Left: Text */}
+                <div className="text-gray-700 text-base md:text-lg leading-relaxed">
+                    <h1 className="text-4xl font-extrabold mb-3">Create Immersive Experiences with AI</h1>
+                    <p className="mb-4">
+                        Businesses are evolving, and visitor expectations are higher than ever.
+                    </p>
+                    <p className="mb-4">
+                        We empower businesses to create dynamic, immersive, and accessible experiences through AI-driven technology — adding value to their already existing content without the need to start over.
+                    </p>
+                    <p>
+                        As an example, remember when you visited a museum and spent hours reading information on exhibits?
+                        <br />
+                        <strong>Forget that. Take a look at this.</strong>
+                    </p>
+                </div>
+
+                {/* Right: Video Thumbnail */}
+                <div
+                    className="relative group rounded-xl overflow-hidden shadow-lg cursor-pointer w-full max-w-lg mx-auto"
+                    onClick={() => setIsVideoOpen1(true)}
+                >
+                    <img
+                        src="https://img.youtube.com/vi/tPI9c3Ys8AA/hqdefault.jpg"
+                        alt="How It Works"
+                        className="w-full h-auto object-cover"
+                    />
+
+                    <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center group-hover:bg-opacity-50 transition">
+                        <div className="bg-white text-black p-4 rounded-full shadow-lg">
+                            <FaPlay className="w-6 h-6" />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Modal for new video */}
+                {isVideoOpen1 && (
+                    <ModalVideo
+                        isOpen={true}
+                        videoSrc="https://www.youtube.com/embed/tPI9c3Ys8AA?autoplay=1"
+                        alt="How It Works"
+                        onClose={() => setIsVideoOpen1(false)}
+                    />
+                )}
+            </div>
+
 
         </>
     );
 }
+
+
