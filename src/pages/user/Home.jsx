@@ -1,4 +1,5 @@
 
+import ContactForm from '../ContactForm';
 import Faqs from '../Faqs';
 import Features from '../Features';
 import FinalCTA from '../FinalCTA';
@@ -23,7 +24,11 @@ const Home = () => {
       <Faqs />
 
       <Testimonials />
+      <div id='contact'>
+        <ContactForm />
+      </div>
       <FinalCTA />
+
       <Footer />
     </div>
   );

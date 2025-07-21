@@ -1,10 +1,13 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
+import { useEffect, useState } from 'react';
+import { CookiesProvider, useCookies } from 'react-cookie';
 
 // Public pages
 import Home from './pages/user/Home';
 import DemoPage from './pages/user/DemoPage';
 import NotFound from './pages/user/NotFound';
+import Qrcode from './pages/user/Qrcode';
 
 // Admin layout + pages
 import AdminLayout from './components/admin/AdminLayout';
@@ -14,20 +17,60 @@ import FeedbackList from './pages/admin/FeedbackList';
 import ProposalList from './pages/admin/ProposalList';
 import DemoEditor from './pages/admin/DemoEditor';
 import Login from './pages/admin/Login';
-import Qrcode from './pages/user/Qrcode';
 
+// New Components
+import ContactForm from './pages/ContactForm';
+import SubscribeForm from './pages/SubscribeForm';
+import CookieConsent from './pages/CookieConsent';
+
+function AppWrapper() {
+  return (
+    <CookiesProvider>
+      <App />
+    </CookiesProvider>
+  );
+}
 
 function App() {
   const { token } = useAuth();
+  const [cookies, setCookie] = useCookies(['cookieConsent']);
+  const [showConsent, setShowConsent] = useState(false);
+  const [analyticsLoaded, setAnalyticsLoaded] = useState(false);
+
+  useEffect(() => {
+    if (!cookies.cookieConsent) {
+      setShowConsent(true);
+    } else if (cookies.cookieConsent === 'accepted' && !analyticsLoaded) {
+      loadAnalytics();
+    }
+  }, [cookies, analyticsLoaded]);
+
+  const loadAnalytics = () => {
+    // Load your analytics scripts here
+    console.log('Loading analytics scripts...');
+    setAnalyticsLoaded(true);
+  };
+
+  const handleConsent = (consent) => {
+    setCookie('cookieConsent', consent, { path: '/', maxAge: 60 * 60 * 24 * 365 });
+    setShowConsent(false);
+
+    if (consent === 'accepted' || (typeof consent === 'object' && consent.analytics)) {
+      loadAnalytics();
+    }
+  };
 
   return (
     <BrowserRouter>
-      <Routes>
+      {showConsent && <CookieConsent onConsent={handleConsent} />}
 
+      <Routes>
         {/* Public routes */}
         <Route path="/" element={<Home />} />
         <Route path="/cards" element={<Qrcode />} />
         <Route path="/demo/:slug" element={<DemoPage />} />
+        <Route path="/contact" element={<ContactForm />} />
+        <Route path="/subscribe" element={<SubscribeForm />} />
         <Route path="/admin/login" element={<Login />} />
 
         {/* Admin protected routes */}
@@ -51,4 +94,4 @@ function App() {
   );
 }
 
-export default App;
+export default AppWrapper;

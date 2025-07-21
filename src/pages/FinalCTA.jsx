@@ -27,14 +27,16 @@ export default function FinalCTA() {
 
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <a
-            href="#"
-            className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-lg transition"
+            onClick={() => {
+              const section = document.getElementById("contact");
+              section?.scrollIntoView({ behavior: "smooth" });
+            }} className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-lg transition"
           >
             Contact Form
           </a>
           <a
             onClick={() => {
-              const section = document.getElementById("try-it-section");
+              const section = document.getElementById("contact");
               section?.scrollIntoView({ behavior: "smooth" });
             }}
             className="cursor-pointer bg-gray-700 hover:bg-gray-600 text-indigo-100 border border-indigo-500/40 px-6 py-3 rounded-lg transition"

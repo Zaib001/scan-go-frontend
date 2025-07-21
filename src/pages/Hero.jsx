@@ -20,13 +20,14 @@ const user = [
         langCode: "en-GB"
     },
     {
-        name: "Ronin",
-        img: "https://randomuser.me/api/portraits/men/6.jpg",
-        gender: "male",
-        voiceName: "Microsoft Mark - English (United States)",
-        langCode: "en-AU"
+        name: "Alia",
+        img: "https://randomuser.me/api/portraits/women/6.jpg", // update to a female image
+        gender: "female", // previously was male
+        voiceName: "Microsoft Zira - English (United States)", // or any female voice
+        langCode: "en-US"
     },
-   
+
+
     {
         name: "Linda",
         img: "https://randomuser.me/api/portraits/women/82.jpg",
@@ -226,159 +227,159 @@ export default function Hero() {
             window.speechSynthesis.onvoiceschanged = null;
         };
     }, [selectedVoice]);
-useEffect(() => {
-    console.log("Available voices:", window.speechSynthesis.getVoices());
-}, []);
- const playText = () => {
-    if (isSpeaking) {
-        stopText();
-        return;
-    }
-
-    const text = translations[selectedLang];
-    if (!text) return;
-
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = selectedVoice.langCode;
-
-    // Voice selection logic (keep your existing code)
-    const availableVoices = window.speechSynthesis.getVoices();
-    let voice = availableVoices.find(v => v.name === selectedVoice.voiceName);
-    
-    if (!voice) {
-        voice = availableVoices.find(v =>
-            v.lang === selectedVoice.langCode &&
-            ((selectedVoice.gender === 'female' && (v.name.includes('Female') || v.name.includes('Woman'))) ||
-             (selectedVoice.gender === 'male' && (v.name.includes('Male') || v.name.includes('Man'))))
-        );
-    }
-    
-    if (!voice) {
-        voice = availableVoices.find(v => v.lang === selectedVoice.langCode);
-    }
-    
-    if (!voice) {
-        voice = availableVoices[0];
-        console.warn("Using fallback voice:", voice);
-    }
-
-    if (voice) {
-        utterance.voice = voice;
-        console.log("Using voice:", voice.name);
-    }
-
-    utterance.rate = 0.9;
-    utterance.pitch = 1;
-
-    setIsSpeaking(true);
-    setCurrentWordIndex(null);
-
-    // Reset all highlights
-    wordRefs.current.forEach(el => {
-        if (el) {
-            el.style.backgroundColor = 'transparent';
-            el.style.fontWeight = 'normal';
+    useEffect(() => {
+        console.log("Available voices:", window.speechSynthesis.getVoices());
+    }, []);
+    const playText = () => {
+        if (isSpeaking) {
+            stopText();
+            return;
         }
-    });
 
-    // Improved word splitting that preserves whitespace
-    const wordRegex = /(\S+|\s+)/g;
-    const words = [];
-    let match;
-    while ((match = wordRegex.exec(text)) !== null) {
-        words.push(match[0]);
-    }
+        const text = translations[selectedLang];
+        if (!text) return;
 
-    // Create word boundaries
-    let wordBoundaries = [];
-    let currentPos = 0;
-    words.forEach((word, index) => {
-        wordBoundaries.push({
-            start: currentPos,
-            end: currentPos + word.length,
-            word: word,
-            index: index
-        });
-        currentPos += word.length;
-    });
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = selectedVoice.langCode;
 
-    // Store the last highlighted index to prevent duplicate highlights
-    let lastHighlightedIndex = null;
+        // Voice selection logic (keep your existing code)
+        const availableVoices = window.speechSynthesis.getVoices();
+        let voice = availableVoices.find(v => v.name === selectedVoice.voiceName);
 
-    utterance.onboundary = (event) => {
-        if (event.name !== 'word') return;
-
-        const charIndex = event.charIndex;
-        
-        // Find the current word
-        const currentWord = wordBoundaries.find(w => 
-            charIndex >= w.start && charIndex < w.end
-        );
-
-        if (currentWord && currentWord.index !== lastHighlightedIndex) {
-            setCurrentWordIndex(currentWord.index);
-            lastHighlightedIndex = currentWord.index;
-
-            // Highlight current word
-            wordRefs.current.forEach((el, idx) => {
-                if (el) {
-                    const shouldHighlight = idx === currentWord.index;
-                    el.style.backgroundColor = shouldHighlight ? '#a5b4fc' : 'transparent';
-                    el.style.fontWeight = shouldHighlight ? 'bold' : 'normal';
-                    el.style.transition = 'background-color 0.2s ease';
-                    
-                    // For better visibility, you can add more styling
-                    if (shouldHighlight) {
-                        el.style.padding = '2px 4px';
-                        el.style.borderRadius = '4px';
-                    } else {
-                        el.style.padding = '0';
-                    }
-                }
-            });
-
-            // Scroll to word
-            const wordElement = wordRefs.current[currentWord.index];
-            if (wordElement && textContainerRef.current) {
-                const container = textContainerRef.current;
-                const wordRect = wordElement.getBoundingClientRect();
-                const containerRect = container.getBoundingClientRect();
-                
-                // Calculate scroll position to center the word
-                const scrollTop = wordRect.top - containerRect.top + container.scrollTop - (containerRect.height / 3);
-                container.scrollTo({ 
-                    top: scrollTop, 
-                    behavior: 'smooth' 
-                });
-            }
+        if (!voice) {
+            voice = availableVoices.find(v =>
+                v.lang === selectedVoice.langCode &&
+                ((selectedVoice.gender === 'female' && (v.name.includes('Female') || v.name.includes('Woman'))) ||
+                    (selectedVoice.gender === 'male' && (v.name.includes('Male') || v.name.includes('Man'))))
+            );
         }
-    };
 
-    utterance.onend = () => {
-        setIsSpeaking(false);
+        if (!voice) {
+            voice = availableVoices.find(v => v.lang === selectedVoice.langCode);
+        }
+
+        if (!voice) {
+            voice = availableVoices[0];
+            console.warn("Using fallback voice:", voice);
+        }
+
+        if (voice) {
+            utterance.voice = voice;
+            console.log("Using voice:", voice.name);
+        }
+
+        utterance.rate = 0.9;
+        utterance.pitch = 1;
+
+        setIsSpeaking(true);
         setCurrentWordIndex(null);
-        lastHighlightedIndex = null;
-        
-        // Reset all highlights when done
+
+        // Reset all highlights
         wordRefs.current.forEach(el => {
             if (el) {
                 el.style.backgroundColor = 'transparent';
                 el.style.fontWeight = 'normal';
-                el.style.padding = '0';
             }
         });
-    };
 
-    utterance.onerror = (event) => {
-        console.error('SpeechSynthesis error:', event);
-        setIsSpeaking(false);
-        setCurrentWordIndex(null);
-        lastHighlightedIndex = null;
-    };
+        // Improved word splitting that preserves whitespace
+        const wordRegex = /(\S+|\s+)/g;
+        const words = [];
+        let match;
+        while ((match = wordRegex.exec(text)) !== null) {
+            words.push(match[0]);
+        }
 
-    speechSynthesis.cancel();
-    speechSynthesis.speak(utterance);
-};
+        // Create word boundaries
+        let wordBoundaries = [];
+        let currentPos = 0;
+        words.forEach((word, index) => {
+            wordBoundaries.push({
+                start: currentPos,
+                end: currentPos + word.length,
+                word: word,
+                index: index
+            });
+            currentPos += word.length;
+        });
+
+        // Store the last highlighted index to prevent duplicate highlights
+        let lastHighlightedIndex = null;
+
+        utterance.onboundary = (event) => {
+            if (event.name !== 'word') return;
+
+            const charIndex = event.charIndex;
+
+            // Find the current word
+            const currentWord = wordBoundaries.find(w =>
+                charIndex >= w.start && charIndex < w.end
+            );
+
+            if (currentWord && currentWord.index !== lastHighlightedIndex) {
+                setCurrentWordIndex(currentWord.index);
+                lastHighlightedIndex = currentWord.index;
+
+                // Highlight current word
+                wordRefs.current.forEach((el, idx) => {
+                    if (el) {
+                        const shouldHighlight = idx === currentWord.index;
+                        el.style.backgroundColor = shouldHighlight ? '#a5b4fc' : 'transparent';
+                        el.style.fontWeight = shouldHighlight ? 'bold' : 'normal';
+                        el.style.transition = 'background-color 0.2s ease';
+
+                        // For better visibility, you can add more styling
+                        if (shouldHighlight) {
+                            el.style.padding = '2px 4px';
+                            el.style.borderRadius = '4px';
+                        } else {
+                            el.style.padding = '0';
+                        }
+                    }
+                });
+
+                // Scroll to word
+                const wordElement = wordRefs.current[currentWord.index];
+                if (wordElement && textContainerRef.current) {
+                    const container = textContainerRef.current;
+                    const wordRect = wordElement.getBoundingClientRect();
+                    const containerRect = container.getBoundingClientRect();
+
+                    // Calculate scroll position to center the word
+                    const scrollTop = wordRect.top - containerRect.top + container.scrollTop - (containerRect.height / 3);
+                    container.scrollTo({
+                        top: scrollTop,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        };
+
+        utterance.onend = () => {
+            setIsSpeaking(false);
+            setCurrentWordIndex(null);
+            lastHighlightedIndex = null;
+
+            // Reset all highlights when done
+            wordRefs.current.forEach(el => {
+                if (el) {
+                    el.style.backgroundColor = 'transparent';
+                    el.style.fontWeight = 'normal';
+                    el.style.padding = '0';
+                }
+            });
+        };
+
+        utterance.onerror = (event) => {
+            console.error('SpeechSynthesis error:', event);
+            setIsSpeaking(false);
+            setCurrentWordIndex(null);
+            lastHighlightedIndex = null;
+        };
+
+        speechSynthesis.cancel();
+        speechSynthesis.speak(utterance);
+    };
 
     const stopText = () => {
         window.speechSynthesis.cancel();
@@ -464,7 +465,7 @@ useEffect(() => {
                                 className="w-full h-auto object-cover"
                             />
 
-                            <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center group-hover:bg-opacity-50 transition">
+                            <div className="absolute inset-0  flex items-center justify-center group-hover:bg-opacity-50 transition">
                                 <div className="bg-white text-black p-4 rounded-full shadow-lg">
                                     <FaPlay className="w-6 h-6" />
                                 </div>
@@ -475,16 +476,12 @@ useEffect(() => {
                     <h1 className="m-10 text-2xl">Providing information in an <strong>audio format</strong> is crucial for accessibility, inclusivity, and engagement.
                     </h1>
                     {/* CTA Button */}
-                    <button
-                        className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full flex items-center gap-2 justify-center mx-auto mb-16 shadow-lg hover:scale-105 transition"
-                        onClick={() => {
-                            const section = document.getElementById("try-it-section");
-                            section?.scrollIntoView({ behavior: "smooth" });
-                        }}
+                    <Link to='/cards'
+                        className="bg-indigo-600 w-[17%] hover:bg-indigo-700 text-white px-6 py-3 rounded-full flex items-center gap-2 justify-center mx-auto mb-16 shadow-lg hover:scale-105 transition"
                     >
                         <FaPlay className="text-white" />
                         Try the Demo
-                    </button>
+                    </Link>
 
                     {/* Grid of Profiles */}
 
@@ -542,7 +539,7 @@ useEffect(() => {
 
                                 <div
                                     ref={textContainerRef}
-                                    className="mt-4 text-gray-800 text-base leading-relaxed whitespace-pre-wrap overflow-y-auto max-h-96"
+                                    className="mt-4 text-gray-800 text-base max-h-96"
                                 >
                                     {translations[selectedLang]?.split(/(\s+)/).map((word, i) => (
                                         <span
@@ -597,9 +594,9 @@ useEffect(() => {
                             </div>
 
                             {/* Controls */}
-                            <div className="absolute top-32 left-64 flex gap-4 z-10">
+                            <div className="absolute top-28 right-4 md:left-64 md:top-32 flex gap-4 z-10">
                                 <button
-                                    className="bg-black text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:bg-indigo-700 transition"
+                                    className="bg-indigo-600 text-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:bg-indigo-700 transition"
                                     onClick={playText}
                                     title={isSpeaking ? "Stop" : "Play"}
                                 >
@@ -656,7 +653,7 @@ useEffect(() => {
                                             alt={`Preview for ${useCase.title}`}
                                             className="w-full h-full object-cover"
                                         />
-                                        <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center group-hover:bg-opacity-50 transition">
+                                        <div className="absolute inset-0 flex items-center justify-center group-hover:bg-opacity-50 transition">
                                             <div className="bg-white text-black p-3 rounded-full shadow-lg">
                                                 <FaPlay className="w-5 h-5" />
                                             </div>
@@ -707,7 +704,7 @@ useEffect(() => {
                         className="w-full h-auto object-cover"
                     />
 
-                    <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center group-hover:bg-opacity-50 transition">
+                    <div className="absolute inset-0  flex items-center justify-center group-hover:bg-opacity-50 transition">
                         <div className="bg-white text-black p-4 rounded-full shadow-lg">
                             <FaPlay className="w-6 h-6" />
                         </div>
