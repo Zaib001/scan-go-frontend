@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
-import Button from '../UI/Button';
+import Button from '../Ui/Button';
 
 const voiceOptions = [
   { id: '21m00Tcm4TlvDq8ikWAM', name: 'Rachel (US Female)' },

@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
-import Button from '../UI/Button';
+import Button from '../Ui/Button';
 
 const QRGenerator = ({ item, onClose, onSubmit }) => {
   const [loading, setLoading] = useState(false);

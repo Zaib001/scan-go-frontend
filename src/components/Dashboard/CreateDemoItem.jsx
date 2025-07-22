@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import Input from '../Ui/Input';
-import Button from '../UI/Button';
+import Button from '../Ui/Button';
 const CreateDemoItem = ({ onClose, onSubmit, wordLimit, remainingDemos }) => {
   const [formData, setFormData] = useState({
     itemName: '',
