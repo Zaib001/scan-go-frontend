@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { authAPI } from '../../services/mainApi';
 import { setAuthToken } from '../../services/auth';
-import Button from '../UI/Button';
+import Button from '../Ui/Button';
 import Input from '../Ui/Input';
 
 const Signup = ({ onSuccess, onSwitchToLogin }) => {
