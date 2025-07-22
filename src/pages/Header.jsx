@@ -16,7 +16,7 @@ export default function Header() {
           <ul className="flex flex-1 items-center justify-end gap-3">
             <li>
               <Link
-                to="/cards"
+                to="/auth"
                 className="py-1.5 px-4 rounded-md text-sm font-medium text-white bg-black hover:bg-indigo-700 transition"
               >
                 Try Demo

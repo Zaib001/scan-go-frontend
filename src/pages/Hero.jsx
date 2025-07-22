@@ -476,7 +476,7 @@ export default function Hero() {
                     <h1 className="m-10 text-2xl">Providing information in an <strong>audio format</strong> is crucial for accessibility, inclusivity, and engagement.
                     </h1>
                     {/* CTA Button */}
-                    <Link to='/cards'
+                    <Link to='/auth'
                         className="bg-indigo-600 w-[17%] hover:bg-indigo-700 text-white px-6 py-3 rounded-full flex items-center gap-2 justify-center mx-auto mb-16 shadow-lg hover:scale-105 transition"
                     >
                         <FaPlay className="text-white" />
