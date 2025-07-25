@@ -64,7 +64,7 @@ const TTSGenerator = ({ item, onClose, onSubmit }) => {
 
             <div className="mb-6">
               <p className="text-gray-700 mb-2">Item: <span className="font-medium">{item.itemName}</span></p>
-              <p className="text-gray-600 text-sm">{item.textContent.split(/\s+/).length} words</p>
+              <p className="text-gray-600 text-sm">{item.textContent?.split(/\s+/).length} words</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">

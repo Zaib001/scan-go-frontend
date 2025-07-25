@@ -40,21 +40,21 @@ const user = [
         name: "Juan",
         img: "https://randomuser.me/api/portraits/men/22.jpg",
         gender: "male",
-        voiceName: "Google español",
+        voiceName: "Google español de Estados Unidos",
         langCode: "es-ES"
     },
     {
         name: "Lucía",
         img: "https://randomuser.me/api/portraits/women/33.jpg",
         gender: "female",
-        voiceName: "Google español de Estados Unidos",
+        voiceName: "Google español",
         langCode: "es-US"
     },
     // French Voices
     {
-        name: "Pierre",
-        img: "https://randomuser.me/api/portraits/men/41.jpg",
-        gender: "male",
+        name: "Maria",
+        img: "https://randomuser.me/api/portraits/women/41.jpg",
+        gender: "female",
         voiceName: "Google français",
         langCode: "fr-FR"
     },
@@ -62,15 +62,15 @@ const user = [
         name: "Sophie ",
         img: "https://randomuser.me/api/portraits/women/44.jpg",
         gender: "female",
-        voiceName: "Google français",
+        voiceName: "Google Bahasa Indonesia",
         langCode: "fr-FR"
     },
     // German Voices
     {
-        name: "Hans",
-        img: "https://randomuser.me/api/portraits/men/55.jpg",
+        name: "Mohe",
+        img: "https://randomuser.me/api/portraits/women/55.jpg",
         gender: "male",
-        voiceName: "Google Deutsch",
+        voiceName: "Google polski",
         langCode: "de-DE"
     },
     {
@@ -539,7 +539,7 @@ export default function Hero() {
 
                                 <div
                                     ref={textContainerRef}
-                                    className="mt-4 text-gray-800 text-base max-h-96"
+                                    className="mt-4 text-gray-800 text-base"
                                 >
                                     {translations[selectedLang]?.split(/(\s+)/).map((word, i) => (
                                         <span
@@ -676,10 +676,12 @@ export default function Hero() {
 
                 )}
             </section>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center text-left mb-16 px-44">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center text-left mb-16 px-6 sm:px-12 md:px-20 lg:px-32 xl:px-44">
                 {/* Left: Text */}
-                <div className="text-gray-700 text-base md:text-lg leading-relaxed">
-                    <h1 className="text-4xl font-extrabold mb-3">Create Immersive Experiences with AI</h1>
+                <div className="text-gray-700 text-base sm:text-base md:text-lg leading-relaxed">
+                    <h1 className="text-3xl sm:text-4xl font-extrabold mb-3">
+                        Create Immersive Experiences with AI
+                    </h1>
                     <p className="mb-4">
                         Businesses are evolving, and visitor expectations are higher than ever.
                     </p>
@@ -695,7 +697,7 @@ export default function Hero() {
 
                 {/* Right: Video Thumbnail */}
                 <div
-                    className="relative group rounded-xl overflow-hidden shadow-lg cursor-pointer w-full max-w-lg mx-auto"
+                    className="relative group rounded-xl overflow-hidden shadow-lg cursor-pointer w-full max-w-md sm:max-w-lg mx-auto"
                     onClick={() => setIsVideoOpen1(true)}
                 >
                     <img
@@ -704,7 +706,7 @@ export default function Hero() {
                         className="w-full h-auto object-cover"
                     />
 
-                    <div className="absolute inset-0  flex items-center justify-center group-hover:bg-opacity-50 transition">
+                    <div className="absolute inset-0 flex items-center justify-center group-hover:bg-black/40 transition duration-300">
                         <div className="bg-white text-black p-4 rounded-full shadow-lg">
                             <FaPlay className="w-6 h-6" />
                         </div>
@@ -721,6 +723,7 @@ export default function Hero() {
                     />
                 )}
             </div>
+
 
 
         </>

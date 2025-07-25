@@ -161,7 +161,7 @@ const DemoItemDetails = ({ item, onClose, onGenerateTTS, onGenerateQR }) => {
                                     <>
                                         <audio
                                             ref={audioRef}
-                                            src={`https://scan-go-backend.onrender.com${item.ttsAudioUrl}`}
+                                            src={`http://localhost:3000${item.ttsAudioUrl}`}
                                             onTimeUpdate={handleTimeUpdate}
                                             onEnded={handleAudioEnd}
                                             className="hidden"
@@ -227,13 +227,13 @@ const DemoItemDetails = ({ item, onClose, onGenerateTTS, onGenerateQR }) => {
                                     <div className="space-y-3">
                                         <div className="flex justify-center">
                                             <img
-                                                src={`https://scan-go-backend.onrender.com${item.qrCodeUrl}`}
+                                                src={`http://localhost:3000${item.qrCodeUrl}`}
                                                 alt="QR Code"
                                                 className="h-32 w-32 object-contain"
                                             />
                                         </div>
                                         <a
-                                            href={`https://scan-go-backend.onrender.com${item.qrCodeUrl}`}
+                                            href={`http://localhost:3000${item.qrCodeUrl}`}
                                             download={`${item.itemName}-qrcode.png`}
                                             target='_blank'
                                             className="inline-flex items-center text-sm text-purple-600 hover:text-purple-800"
