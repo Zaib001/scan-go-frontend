@@ -188,13 +188,13 @@ const DemoItemDetails = ({ item, onClose, onGenerateTTS, onGenerateQR }) => {
                                                 </div>
                                             </div>
 
-                                            {/* <a
-                                                href={item.ttsAudioUrl}
+                                            <a
+                                                href={`http://localhost:3000${item.ttsAudioUrl}`}
                                                 download
                                                 className="inline-flex items-center text-sm text-green-600 hover:text-green-800"
                                             >
                                                 <FiDownload className="mr-1" /> Download MP3
-                                            </a> */}
+                                            </a>
                                         </div>
                                     </>
                                 ) : (

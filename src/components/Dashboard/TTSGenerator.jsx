@@ -3,10 +3,10 @@ import { useState } from 'react';
 import Button from '../Ui/Button';
 
 const voiceOptions = [
-  { id: '21m00Tcm4TlvDq8ikWAM', name: 'Rachel (US Female)' },
-  { id: 'TxGEqnHWrfWFTfGW9XjX', name: 'Domi (US Male)' },
-  { id: 'ErXwobaYiN019PkySvjV', name: 'Bella (UK Female)' },
-  { id: 'EXAVITQu4vr4xnSDxMaL', name: 'Antoni (UK Male)' }
+  { id: '21m00Tcm4TlvDq8ikWAM', name: 'Rachel ' },
+  { id: 'TxGEqnHWrfWFTfGW9XjX', name: 'Domi ' },
+  { id: 'ErXwobaYiN019PkySvjV', name: 'Boni ' },
+  { id: 'EXAVITQu4vr4xnSDxMaL', name: 'Antoni ' }
 ];
 
 

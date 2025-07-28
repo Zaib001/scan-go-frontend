@@ -40,14 +40,14 @@ const user = [
         name: "Juan",
         img: "https://randomuser.me/api/portraits/men/22.jpg",
         gender: "male",
-        voiceName: "Google español de Estados Unidos",
+        voiceName: "Google español",
         langCode: "es-ES"
     },
     {
         name: "Lucía",
         img: "https://randomuser.me/api/portraits/women/33.jpg",
         gender: "female",
-        voiceName: "Google español",
+        voiceName: "Google español de Estados Unidos",
         langCode: "es-US"
     },
     // French Voices
@@ -713,7 +713,6 @@ export default function Hero() {
                     </div>
                 </div>
 
-                {/* Modal for new video */}
                 {isVideoOpen1 && (
                     <ModalVideo
                         isOpen={true}
