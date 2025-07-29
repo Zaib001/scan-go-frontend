@@ -5,7 +5,7 @@ import Button from '../Ui/Button';
 const voiceOptions = [
   { id: '21m00Tcm4TlvDq8ikWAM', name: 'Rachel ' },
   { id: 'TxGEqnHWrfWFTfGW9XjX', name: 'Domi ' },
-  { id: 'ErXwobaYiN019PkySvjV', name: 'Boni ' },
+  { id: 'ErXwobaYiN019PkySvjV', name: 'Bonoai ' },
   { id: 'EXAVITQu4vr4xnSDxMaL', name: 'Antoni ' }
 ];
 
