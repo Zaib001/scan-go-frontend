@@ -11,12 +11,7 @@ import NotFound from './pages/user/NotFound';
 import Qrcode from './pages/user/Qrcode';
 
 // Admin layout + pages
-import AdminLayout from './components/admin/AdminLayout';
-import Dashboard from './pages/admin/Dashboard';
-import DemoList from './pages/admin/DemoList';
-import FeedbackList from './pages/admin/FeedbackList';
-import ProposalList from './pages/admin/ProposalList';
-import DemoEditor from './pages/admin/DemoEditor';
+
 import Login from './pages/admin/Login';
 
 // New Components

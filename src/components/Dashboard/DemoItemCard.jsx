@@ -6,7 +6,7 @@ const DemoItemCard = ({
   item, 
   onGenerateTTS, 
   onGenerateQR,
-  onViewDetails  // Add this new prop
+  onViewDetails  
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 

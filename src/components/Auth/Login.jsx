@@ -1,26 +1,21 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { authAPI } from '../../services/mainApi';
-import { setAuthToken } from '../../services/auth';
 import Button from '../Ui/Button';
 import Input from '../Ui/Input';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const Login = ({ onSuccess, onSwitchToSignup }) => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -30,10 +25,7 @@ const Login = ({ onSuccess, onSwitchToSignup }) => {
 
     try {
       const response = await authAPI.login(formData);
-
-      setAuthToken(response.data.token);
-      window.location.reload();
-
+      login({ token: response.data.token, admin: response.data.user });
       onSuccess(response.data.user);
       navigate('/app/dashboard');
     } catch (err) {
@@ -111,7 +103,6 @@ const Login = ({ onSuccess, onSwitchToSignup }) => {
           {loading ? 'Logging in...' : 'Log In'}
         </Button>
       </form>
-
     </motion.div>
   );
 };

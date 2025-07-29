@@ -33,7 +33,7 @@ const Dashboard = () => {
           demoAPI.getDemoItems(),
           versionAPI.getFeatures()
         ]);
-        
+
         setDemoItems(itemsRes.data.items);
         setFeatures(featuresRes.data);
         setLoading(false);
@@ -46,6 +46,17 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
+
+  const refetchDemoItems = async () => {
+    try {
+      const itemsRes = await demoAPI.getDemoItems();
+      setDemoItems(itemsRes.data.items);
+    } catch (err) {
+      setError('Failed to refresh items');
+    }
+  };
+
+
   const handleLogout = () => {
     removeAuthToken();
     navigate('/');
@@ -53,41 +64,39 @@ const Dashboard = () => {
 
   const handleCreateItem = async (itemData) => {
     try {
-      const response = await demoAPI.createDemoItem(itemData);
-      setDemoItems([...demoItems, response.data]);
+      await demoAPI.createDemoItem(itemData);
+      await refetchDemoItems();
       setShowCreateModal(false);
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to create demo item');
     }
   };
 
+
   const handleGenerateTTS = async (data) => {
     try {
-      const response = await demoAPI.generateTTS({
+      await demoAPI.generateTTS({
         demoItemId: selectedItem._id,
         ...data
       });
-      
-      setDemoItems(demoItems.map(item => 
-        item._id === selectedItem._id ? { ...item, ...response.data } : item
-      ));
-      
+      await refetchDemoItems();
       setShowTTSModal(false);
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to generate TTS');
     }
   };
 
+
   const handleGenerateQR = async () => {
     try {
       const response = await demoAPI.generateQR({
         demoItemId: selectedItem._id
       });
-      
-      setDemoItems(demoItems.map(item => 
+
+      setDemoItems(demoItems.map(item =>
         item._id === selectedItem._id ? { ...item, ...response.data } : item
       ));
-      
+
       setShowQRModal(false);
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to generate QR code');
@@ -114,14 +123,14 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       <Navbar user={user} onLogout={handleLogout} />
-      
+
       <div className="flex flex-1">
-        <Sidebar 
-          activeTab={activeTab} 
+        <Sidebar
+          activeTab={activeTab}
           onTabChange={setActiveTab}
           remainingDemos={3 - demoItems.length}
         />
-        
+
         <main className="flex-1 p-6 md:p-8 overflow-y-auto">
           <div className="max-w-7xl mx-auto">
             {/* Header Section */}
@@ -137,7 +146,7 @@ const Dashboard = () => {
                   {demoItems.length} of 3 items created
                 </p>
               </motion.div>
-              
+
               {demoItems.length < 3 && (
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -231,7 +240,7 @@ const Dashboard = () => {
             remainingDemos={3 - demoItems.length}
           />
         )}
-        
+
         {showTTSModal && selectedItem && (
           <TTSGenerator
             item={selectedItem}
@@ -239,7 +248,7 @@ const Dashboard = () => {
             onSubmit={handleGenerateTTS}
           />
         )}
-        
+
         {showQRModal && selectedItem && (
           <QRGenerator
             item={selectedItem}
